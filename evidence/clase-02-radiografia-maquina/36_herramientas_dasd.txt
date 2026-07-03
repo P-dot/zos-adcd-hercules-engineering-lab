@@ -1,0 +1,17 @@
+ El volumen de la unidad F es zPDT
+ El n£mero de serie del volumen es: 649D-6681
+
+ Directorio de F:\ZOS111\HERCULES
+
+28/09/2017  02:38            17.920 dasdcat.exe
+28/09/2017  02:38            22.016 dasdconv.exe
+28/09/2017  02:38            23.040 dasdcopy.exe
+28/09/2017  02:38            17.408 dasdinit.exe
+28/09/2017  02:38            19.456 dasdisup.exe
+28/09/2017  02:38            61.952 dasdload.exe
+28/09/2017  02:38            20.480 dasdls.exe
+28/09/2017  02:38            17.920 dasdpdsu.exe
+28/09/2017  02:38            30.720 dasdseq.exe
+               9 archivos        230.912 bytes
+               0 dirs  51.751.780.352 bytes libres
+F:\ZOS111\HERCULES\dasdls.exe

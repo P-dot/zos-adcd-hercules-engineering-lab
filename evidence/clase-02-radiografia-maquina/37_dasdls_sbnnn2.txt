@@ -1,0 +1,24 @@
+F:\ZOS111\sbnnn2.CCKD: VOLSER=SBBBN2
+SYS1.VTOCIX.SBBBN2                          
+SYS1.VVDS.VSBBBN2                           
+ZOSMFB.GLOBAL.SMPPTS                        
+ZOSMFB.ZOSMFBT.SMPLTS                       
+ZOSMFB.ZOSMFBT.SMPMTS                       
+ZOSMFB.ZOSMFBT.SMPSCDS                      
+ZOSMFB.ZOSMFBT.SMPSTS                       
+ZOSMFB.DOCLIB                               
+ZOSMFB.RIMLIB                               
+ZOSMFB.PGMDIR                               
+IZU.AIZUFS                                  
+IZU.AIZUJCL                                 
+BBN.ABBN7HF1                                
+BBN.ABBN7HF2                                
+BBN.ABBN7HF3                                
+BBN.ABBN7JCL                                
+BBN.ABBN7MSG                                
+ZOSMFB.GLOBAL.CSI.DATA                      
+ZOSMFB.GLOBAL.CSI.INDEX                     
+ZOSMFB.ZOSMFBD.CSI.DATA                     
+ZOSMFB.ZOSMFBD.CSI.INDEX                    
+ZOSMFB.ZOSMFBT.CSI.DATA                     
+ZOSMFB.ZOSMFBT.CSI.INDEX                    
