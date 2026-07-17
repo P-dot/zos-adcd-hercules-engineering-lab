@@ -33,3 +33,13 @@ El objetivo no es solo operar comandos, sino entender cómo funciona la máquina
 ## Aviso
 
 Este repositorio documenta un laboratorio propio con fines educativos, defensivos y de ingeniería de sistemas. No contiene discos DASD, binarios de z/OS, contraseñas ni material propietario redistribuible.
+
+## Nuevos laboratorios
+
+| Lab | Tema | Resultado |
+|---|---|---|
+| Lab 04 | Ingeniería DASD ZVOL00/ZVOL01 | Creación e inicialización de volúmenes 3390 de laboratorio |
+| Lab 05 | DB2 + CICS DB2CONN | CICS CICSA conectado a DB2 DB9G mediante DB2CONN persistente |
+
+- [Lab 04 - ZVOL DASD Engineering](labs/04-zvol-dasd-engineering)
+- [Lab 05 - DB2 + CICS DB2CONN Integration](labs/05-db2-cics-db2conn-integration)
