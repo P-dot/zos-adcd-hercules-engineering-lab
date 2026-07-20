@@ -1,0 +1,11 @@
+./labs/01-system-services-structure-system-introduction/README.md
+./labs/01-system-services-structure-system-introduction/docs/COMMANDS.md
+./labs/01-system-services-structure-system-introduction/docs/tree.txt
+./labs/01-system-services-structure-system-introduction/evidence/README.md
+./labs/01-system-services-structure-system-introduction/evidence/SYSTEM_SERVICES_lab01_source.docx
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/01_d_iplinfo.png
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/02_d_a_l.png
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/03_d_m_cpu.png
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/04_d_m_stor.png
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/05_d_c_l.png
+./labs/01-system-services-structure-system-introduction/evidence/screenshots/06_d_r_l.png
