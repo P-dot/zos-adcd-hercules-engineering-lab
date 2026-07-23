@@ -1,0 +1,18 @@
+02-system-services-structure-operating-environment-initialization/
+├── README.md
+├── docs/
+│   └── COMMANDS.md
+└── evidence/
+    ├── LAB02_source.docx
+    ├── README.md
+    └── screenshots/
+        ├── 01_d_iplinfo.png
+        ├── 02_d_symbols.png
+        ├── 03_d_ios_config.png
+        ├── 04_d_u_dasd_offline.png
+        ├── 05_d_u_0a80_16.png
+        ├── 06_d_u_0a82_16.png
+        ├── 07_d_m_dev_0a80.png
+        ├── 08_d_m_dev_0a82.png
+        ├── 09_d_prog_lpa_syntax_error.png
+        └── 10_d_prog_lnklist.png
