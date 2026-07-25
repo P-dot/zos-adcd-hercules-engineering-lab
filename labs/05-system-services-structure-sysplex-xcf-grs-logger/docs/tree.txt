@@ -1,0 +1,16 @@
+README.md
+docs/COMMANDS.md
+docs/tree.txt
+evidence/LAB05_source.docx
+evidence/README.md
+evidence/lab05_contact_sheet.jpg
+evidence/screenshots/01_d_a_l.png
+evidence/screenshots/02_d_xcf.png
+evidence/screenshots/03_d_xcf_couple.png
+evidence/screenshots/04_d_xcf_group.png
+evidence/screenshots/05_d_grs.png
+evidence/screenshots/06_d_wlm.png
+evidence/screenshots/07_d_r_l.png
+evidence/screenshots/08_d_c_l.png
+evidence/screenshots/09_sdsf_da_sysplex_components_1.png
+evidence/screenshots/10_sdsf_da_sysplex_components_2.png
