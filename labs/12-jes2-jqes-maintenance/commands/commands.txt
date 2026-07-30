@@ -1,0 +1,33 @@
+# LAB 12 - Command Log
+
+## Diagnóstico inicial
+
+```text
+D A,L
+D R,L
+$D JOBDEF
+$D SPOOL
+$D JOBQ
+```
+
+## Mitigación aplicada
+
+```text
+$T JOBDEF,JNUMWARN=90
+```
+
+## Verificación posterior
+
+```text
+$D JOBDEF
+D R,L
+```
+
+## Resultado esperado
+
+```text
+JNUMWARN=90
+SBSYS1 ACTIVE
+SBSYS9 ACTIVE
+$HASP050 queda como aviso histórico si conserva hora anterior
+```
