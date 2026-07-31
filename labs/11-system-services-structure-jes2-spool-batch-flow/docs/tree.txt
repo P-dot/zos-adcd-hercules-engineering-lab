@@ -1,0 +1,19 @@
+11-system-services-structure-jes2-spool-batch-flow/
+  README.md
+  evidence/
+    LAB11_source.docx
+    README.md
+    lab11_contact_sheet.jpg
+    screenshots/
+      01_jes2_d_a_no_active_jobs.png
+      02_jes2_d_jobq_mascomm.png
+      03_jes2_d_init_status.png
+      04_jes2_d_spool_status.png
+      05_jes2_d_spooldef.png
+      06_jes2_d_jobdef.png
+      07_jes2_d_outdef.png
+      08_d_a_l_activity.png
+      09_d_r_l_no_messages.png
+      10_d_c_l_console_status.png
+  docs/
+    COMMANDS.md
