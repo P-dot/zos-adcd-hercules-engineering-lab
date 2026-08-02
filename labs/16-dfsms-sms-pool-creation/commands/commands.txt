@@ -1,0 +1,80 @@
+# LAB 16 - Commands
+
+# z/OS verification
+D U,,,0A9E,3
+
+# Windows / PowerShell
+cd F:\ZOS111\HERCULES
+.\dasdinit.exe -z -a F:\ZOS111\SMS000.CCKD 3390-3 SMS000
+.\dasdinit.exe -z -a F:\ZOS111\SMS001.CCKD 3390-3 SMS001
+.\dasdinit.exe -z -a F:\ZOS111\SMS002.CCKD 3390-3 SMS002
+
+# Workaround for SMS001 permission issue
+Rename-Item F:\ZOS111\SMS001.CCKD SMS001_BAD.CCKD -Force
+.\dasdinit.exe -z -a F:\ZOS111\SMS001B.CCKD 3390-3 SMS001
+
+# Hercules console
+attach 0A9E 3390 F:\ZOS111\SMS000.CCKD
+attach 0A9F 3390 F:\ZOS111\SMS001B.CCKD
+attach 0AA0 3390 F:\ZOS111\SMS002.CCKD
+
+# MASTER console
+V 0A9E,ONLINE
+V 0A9F,ONLINE
+V 0AA0,ONLINE
+D U,,,0A9E,3
+
+V 0A9E,OFFLINE
+V 0A9F,OFFLINE
+V 0AA0,OFFLINE
+
+# ICKDSF JCL
+//INISMS   JOB (ACCT),'INIT SMS VOLS',CLASS=A,MSGCLASS=X
+//INIT1    EXEC PGM=ICKDSF,REGION=0M
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+ INIT UNITADDRESS(0A9E) NOVERIFY VOLID(SMS000) VTOC(0,1,75)
+ INIT UNITADDRESS(0A9F) NOVERIFY VOLID(SMS001) VTOC(0,1,75)
+ INIT UNITADDRESS(0AA0) NOVERIFY VOLID(SMS002) VTOC(0,1,75)
+/*
+
+# After CC 0000
+V 0A9E,ONLINE
+V 0A9F,ONLINE
+V 0AA0,ONLINE
+D U,,,0A9E,3
+
+# Persist in hercules.cnf
+0A9E 3390 F:\ZOS111\SMS000.CCKD
+0A9F 3390 F:\ZOS111\SMS001B.CCKD
+0AA0 3390 F:\ZOS111\SMS002.CCKD
+
+# ISMF
+M
+2  ISMF
+6  Storage Group
+
+CDS Name: SYS1.SCDS
+Storage Group Name: SMSPOOL
+Storage Group Type: POOL
+Option: 2 DEFINE
+
+Description: SMS LAB POOL FOR HERCULES DASD
+Auto Migrate: N
+Auto Backup: N
+Auto Dump: N
+Overflow: N
+ADCD SMS SG Status: ENABLE
+
+# Add volumes
+Option: 4 Volume
+Option: 2 Define
+Prefix: SMS
+From: 000
+To: 002
+
+# Verify
+Option: 1 Display
+Prefix: SMS
+From: 000
+To: 002
