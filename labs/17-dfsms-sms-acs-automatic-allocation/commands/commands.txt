@@ -1,0 +1,167 @@
+# Commands — LAB 17 DFSMS/SMS ACS Automatic Allocation
+
+## Windows / Hercules volume creation
+
+```powershell
+cd F:\ZOS111\HERCULES
+.\dasdinit.exe -z -a F:\ZOS111\SMS000.CCKD 3390-3 SMS000
+.\dasdinit.exe -z -a F:\ZOS111\SMS001.CCKD 3390-3 SMS001
+.\dasdinit.exe -z -a F:\ZOS111\SMS002.CCKD 3390-3 SMS002
+```
+
+## Hercules runtime attach
+
+```text
+attach 0A9E 3390 F:\ZOS111\SMS000.CCKD
+attach 0A9F 3390 F:\ZOS111\SMS001.CCKD
+attach 0AA0 3390 F:\ZOS111\SMS002.CCKD
+```
+
+## Hercules persistence check
+
+Confirm these lines exist in `F:\ZOS111\hercules.cnf` before relying on the volumes after IPL:
+
+```text
+0A9E 3390 F:\ZOS111\SMS000.CCKD
+0A9F 3390 F:\ZOS111\SMS001.CCKD
+0AA0 3390 F:\ZOS111\SMS002.CCKD
+```
+
+PowerShell helper:
+
+```powershell
+$cfg = 'F:\ZOS111\hercules.cnf'
+$bak = 'F:\ZOS111\hercules.cnf.BEFORE_SMSPOOL'
+Copy-Item $cfg $bak -Force
+$lines = @(
+'0A9E 3390 F:\ZOS111\SMS000.CCKD',
+'0A9F 3390 F:\ZOS111\SMS001.CCKD',
+'0AA0 3390 F:\ZOS111\SMS002.CCKD'
+)
+$c = Get-Content $cfg
+foreach ($line in $lines) {
+  $addr = $line.Split()[0]
+  if ($c -match "^\s*$addr\s+") {
+    $c = $c -replace "^\s*$addr\s+.*$", $line
+  } else {
+    $c += $line
+  }
+}
+Set-Content -Path $cfg -Value $c -Encoding ASCII
+Select-String -Path $cfg -Pattern '^\s*0A9E\s+|^\s*0A9F\s+|^\s*0AA0\s+'
+```
+
+## z/OS display commands
+
+MASTER console:
+
+```text
+D SMS
+D SMS,STORGRP(SMSPOOL)
+D SMS,VOLUME(SMS000)
+D SMS,VOLUME(SMS001)
+D SMS,VOLUME(SMS002)
+D U,,,0A9E,3
+```
+
+SDSF command input equivalents use `/` prefix:
+
+```text
+/D SMS
+/D SMS,STORGRP(SMSPOOL)
+/D SMS,VOLUME(SMS000)
+/D SMS,VOLUME(SMS001)
+/D SMS,VOLUME(SMS002)
+/D U,,,0A9E,3
+```
+
+## ACS source routines
+
+`IBMUSER.HARDEN.CNTL(ACSSTOR)`:
+
+```text
+PROC STORCLAS
+IF &DSN(1) = 'IBMUSER' AND &DSN(2) = 'SMSLAB' THEN
+  SET &STORCLAS = 'SMSLAB'
+ELSE
+  SET &STORCLAS = ''
+END
+```
+
+`IBMUSER.HARDEN.CNTL(ACSGRP)`:
+
+```text
+PROC STORGRP
+IF &STORCLAS = 'SMSLAB' THEN
+  SET &STORGRP = 'SMSPOOL'
+ELSE
+  SET &STORGRP = 'DBCLASS'
+END
+```
+
+## ICKDSF initialization as SMS-managed volumes
+
+`IBMUSER.HARDEN.CNTL(INISMSG)`:
+
+```jcl
+//INISMSG  JOB (ACCT),'INIT SMS SG',CLASS=A,MSGCLASS=X
+//STEP01   EXEC PGM=ICKDSF,REGION=0M
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+ INIT UNIT(0A9E) NVFY VTOC(0,1,75) VOLID(SMS000) INDEX(6,0,15) PURGE SG
+ INIT UNIT(0A9F) NVFY VTOC(0,1,75) VOLID(SMS001) INDEX(6,0,15) PURGE SG
+ INIT UNIT(0AA0) NVFY VTOC(0,1,75) VOLID(SMS002) INDEX(6,0,15) PURGE SG
+/*
+```
+
+## Enable SMS storage group and volumes
+
+MASTER console:
+
+```text
+V SMS,STORGRP(SMSPOOL),ENABLE
+V SMS,VOLUME(SMS000),ENABLE
+V SMS,VOLUME(SMS001),ENABLE
+V SMS,VOLUME(SMS002),ENABLE
+```
+
+## Real allocation test
+
+`IBMUSER.HARDEN.CNTL(ALCSMS)`:
+
+```jcl
+//ALCSMS   JOB (ACCT),'SMS ALLOC',CLASS=A,MSGCLASS=X
+//CLEANUP  EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+ DELETE IBMUSER.SMSLAB.TEST1 PURGE
+ SET MAXCC = 0
+/*
+//ALLOC    EXEC PGM=IEFBR14
+//DD1      DD DSN=IBMUSER.SMSLAB.TEST1,
+//            DISP=(NEW,CATLG,DELETE),
+//            SPACE=(TRK,(1,1)),
+//            DCB=(DSORG=PS,RECFM=FB,LRECL=80,BLKSIZE=800)
+```
+
+## LISTCAT verification
+
+`IBMUSER.HARDEN.CNTL(LCATSMS)`:
+
+```jcl
+//LCATSMS  JOB (ACCT),'LIST SMS',CLASS=A,MSGCLASS=X
+//STEP01   EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+ LISTCAT ENTRIES('IBMUSER.SMSLAB.TEST1') ALL
+/*
+```
+
+Expected:
+
+```text
+IDCAMS MAXCC 0
+IBMUSER.SMSLAB.TEST1 found
+STORAGECLASS SMSLAB
+VOLSER SMS001 or another SMSPOOL volume
+```
