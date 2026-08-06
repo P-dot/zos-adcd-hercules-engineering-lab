@@ -1,0 +1,1112 @@
+# tactiq.io free youtube transcript
+# IBM z/OS: Introducción al HCD (Hardware Configuration Definition)
+# https://www.youtube.com/watch/bnfqa5P55Gw
+
+00:00:04.200 Hola muy buenas a todos y bienvenidos a
+00:00:06.279 un nuevo vídeo de mindframe Corner bien
+00:00:08.639 en este vídeo vamos a hacer una
+00:00:10.000 introducción a lo que sería el hcd o
+00:00:12.679 Hardware configuration definition que
+00:00:14.839 vienen en todos los equipos mindframe
+00:00:16.320 esta herramienta se utiliza para definir
+00:00:19.279 los dispositivos que va a utilizar el
+00:00:20.640 mindframe por ejemplo discos terminales
+00:00:24.400 impresoras unidades de
+00:00:26.199 telecomunicaciones lectoras y escritoras
+00:00:28.519 de tarjetas y un largo dispositivos que
+00:00:30.880 se pueden conectar al mindframe desde el
+00:00:33.160 nacimiento del mindframe en
+00:00:35.360 1964 el sistema por el que los se
+00:00:38.120 definían los dispositivos es siempre por
+00:00:40.760 una dirección de memoria es decir el
+00:00:43.079 sistema siempre ha funcionado por lo que
+00:00:45.039 se llama dma que es Direct Memory Access
+00:00:48.160 esto es yo asigno una dirección de
+00:00:50.199 memoria hexadecimal a un dispositivo y
+00:00:53.480 ese dispositivo queda mapeado en una
+00:00:55.879 zona de la ram con esa dirección y
+00:00:57.960 entonces lo que hace si yo quiero por
+00:01:00.640 ejemplo hacer una escritura de un disco
+00:01:03.160 o una lectura de un disco accedo por esa
+00:01:05.640 dirección de memoria y en la cpu puede
+00:01:08.280 mediante esa dirección ir al dispositivo
+00:01:10.720 en concreto recoger el dato y trabajar
+00:01:13.520 con él bien pero cómo funciona todo este
+00:01:16.159 tema pues esto es muy sencillo en el
+00:01:18.200 caso del emulador Hércules tenemos este
+00:01:21.079 fichero de configuración de Hércules que
+00:01:22.640 es el que conocéis todos aquí se definen
+00:01:24.439 los datos de la cpu que vamos a manejar
+00:01:27.159 del procesador del sistema que emula
+00:01:29.040 Hércules y aquí abajo se definen todas
+00:01:32.119 las direcciones con los dispositivos
+00:01:34.079 asociados a esa dirección como podéis
+00:01:36.000 ver aquí tenemos por ejemplo la
+00:01:37.960 dirección 00e asociado a una impresora
+00:01:41.240 1403 que es bueno en este caso concreto
+00:01:43.759 la cures prt luego Tenemos aquí por
+00:01:46.880 ejemplo dos direcciones de memoria la
+00:01:48.479 580 y 581 que hacen referencia a las
+00:01:51.479 unidades de cinta
+00:01:53.000 3490 esto ya en un vídeo más adelante os
+00:01:55.479 explicaré cómo trabajar con Cintas en
+00:01:56.960 Hércules que eso es una Odisea que que
+00:01:59.960 va a tener mucha amiga y y bueno
+00:02:02.240 esperará con ensas a ese vídeo porque es
+00:02:05.079 muy interesante Pero bueno volviendo al
+00:02:07.240 tema aquí tenemos por ejemplo una
+00:02:08.840 dirección 700 con cuatro dispositivos es
+00:02:11.440 decir la 701 2 3 que son terminales 3270
+00:02:15.000 que es nuestro terminal no sna conectado
+00:02:17.720 a una unidad de control 3174 que está
+00:02:20.640 conectada por canal de acuerdo y luego
+00:02:23.280 por otra parte Tenemos aquí de la
+00:02:24.480 dirección 0 a80 a la 0
+00:02:26.959 a9c pues discos que son del modelo 3390
+00:02:31.400 que en Hércules están emulados de esta
+00:02:33.319 forma y ya para terminar el fichero de
+00:02:35.800 configuración de Hércules aquí tenemos
+00:02:37.319 nuestra definición de nuestro l Channel
+00:02:39.959 Station o lcs o Osa en Los mindf Reales
+00:02:43.720 que es donde definimos nuestras
+00:02:46.000 Comunicaciones y como podéis ver tiene
+00:02:49.319 dos dispositivos el e20 y el e21 Y
+00:02:52.720 entonces ahora me vais a decir Bueno ya
+00:02:54.319 y estas direcciones de dónde salen Bueno
+00:02:56.319 pues estas direcciones realmente cuando
+00:02:58.760 se definió el a dcd es decir el
+00:03:01.319 application development controller
+00:03:03.239 Distribution que es el que es el sistema
+00:03:06.080 zos 1111 que te que veis aquí se
+00:03:09.200 definieron Porque alguien cuando creó el
+00:03:12.000 sistema operativo asoció esos esas
+00:03:14.799 direcciones de memoria a esos discos y
+00:03:17.080 por tanto en la documentación viene
+00:03:19.080 Cuáles son las direcciones esto ya en un
+00:03:20.879 vídeo de introductorio de Hércules de
+00:03:22.840 hace ya tiempo os expliqué De dónde
+00:03:24.840 venían lo que había que hacer era leer
+00:03:26.319 la documentación el PDF que que venía
+00:03:28.920 acompañado al adcd y ahí venía
+00:03:31.439 exactamente cada dirección a que era
+00:03:34.560 correspondido si era un disco una cinta
+00:03:36.799 una Osa o una impresora Pero qué ocurre
+00:03:40.680 por ejemplo en un sistema real en un
+00:03:42.519 sistema mindframe real pues pasa
+00:03:44.760 Exactamente lo mismo que en Hércules
+00:03:46.400 Solo que tú tienes una serie de tarjetas
+00:03:49.599 físicas pinchadas en unas direcciones
+00:03:51.920 físicas que en este caso se llaman
+00:03:54.000 pechis Y esas tarjetas asocias Esa
+00:03:57.239 dirección física con la dirección de
+00:04:00.239 memoria lógica que habéis visto en el
+00:04:02.280 fichero de configuración Y esa relación
+00:04:06.000 de configuración lógica de dispositivos
+00:04:09.680 del zos se traduce a las direcciones
+00:04:13.040 físicas de un sistema mindframe real y
+00:04:16.000 funcionando mediante el uso de la
+00:04:18.399 herramienta
+00:04:19.440 hcd así que sin más miramientos Vamos a
+00:04:22.280 entrar en la herramienta aquí vas en
+00:04:25.160 more y vamos a la opción cuatro que es
+00:04:26.960 el hcd el hcd Es una herramienta que
+00:04:31.320 utiliza un fichero que se llama I odf
+00:04:33.960 que es el input output definition file
+00:04:37.080 que es donde definimos la configuración
+00:04:41.160 de todos los dispositivos que el sistema
+00:04:43.720 zos va a ver puede ver o está viendo de
+00:04:48.479 acuerdo Entonces el proceso es el
+00:04:50.759 siguiente yo cuando quiero Añadir
+00:04:54.160 supongamos
+00:04:55.440 que quiero Añadir discos adicionales
+00:04:59.240 pues pues entonces yo lo primero que
+00:05:00.960 tengo que hacer es defino las
+00:05:03.039 direcciones de memoria que quiero que
+00:05:04.520 utilicen esos
+00:05:05.720 discos defino a qué canal Y a qué unidad
+00:05:09.280 de control están conectados esas
+00:05:11.000 direcciones de disco Y por último envío
+00:05:14.600 a esa información al mindframe real
+00:05:17.560 donde en los Support Element en los
+00:05:19.680 portátiles que manejan la configuración
+00:05:21.360 del mindframe se graba dicha
+00:05:23.319 configuración y cuando hacemos un Power
+00:05:26.360 on reset del mindframe
+00:05:29.800 reiniciará la configuración con esos
+00:05:31.880 nuevos datos que nosotros le hemos le
+00:05:33.720 hemos puesto Y a partir de ese momento
+00:05:35.720 nosotros podemos pinchar fibras nuevas o
+00:05:37.720 tarjetas nuevas y conectar unos discos
+00:05:39.840 nuevos por ejemplo a nuestra
+00:05:41.280 configuración inicial sin tocar nada de
+00:05:43.319 lo existente de acuerdo es un poco el
+00:05:46.000 proceso Entonces lo primero que tenemos
+00:05:47.759 que hacer es definir un iod f para no
+00:05:51.199 irnos por las ramas vamos a ver qué I
+00:05:53.560 odf Utiliza este sistema actualmente y
+00:05:56.400 nos basaremos en él para explicaros las
+00:05:58.400 diferencias entre las unidades de
+00:05:59.960 control dispositivos eh auxiliares
+00:06:02.759 procesadores lpes etcétera Así que lo
+00:06:06.199 primero que vamos a hacer es mirar
+00:06:07.840 nosotros cuando vamos aquí a nuestro
+00:06:10.440 fichero de configuración de Hércules
+00:06:12.160 vemos que hay nuestro loath parm es la
+00:06:15.680 dirección 0 a82 db porque estamos
+00:06:18.440 arrancando con el db2 y el Z y luego M1
+00:06:21.400 Entonces vamos a ver que tiene que
+00:06:23.599 existir un miembro loaz llamado db loaz
+00:06:26.319 db en este caso que apunta a una
+00:06:28.560 dirección concreta entonces lo que
+00:06:30.199 hacemos Es lo siguiente lo primero de
+00:06:32.400 todo es ir a la opción 3.4 para
+00:06:35.319 consultar los datasets y nos vamos a ir
+00:06:37.319 a la opción sis
+00:06:39.800 un.pl parm que aquí es donde definimos
+00:06:43.160 las configuraciones de los miembros
+00:06:45.680 loath que son los que utiliza el fichero
+00:06:48.120 de parámetros para
+00:06:49.520 arrancar perfiles de arranque del
+00:06:53.400 sistema operativo de acuerdo Así que
+00:06:55.360 aquí vamos a la opción browser y vamos a
+00:06:57.639 ver nuestro loaz db que está aquí vamos
+00:07:01.840 a ver qué contenido tiene hacemos aquí
+00:07:03.599 un
+00:07:04.240 browser y vemos que el iod F es el 99
+00:07:09.680 con el cualificador sis 1 así que ya
+00:07:12.960 sabemos Cuál es nuestro fichero que
+00:07:14.680 utiliza el sistema para arrancar se
+00:07:17.240 llama sis 1. iod f99 De hecho si salimos
+00:07:21.199 de aquí y hacemos una búsqueda por
+00:07:24.360 s1 iod f99 no solo tiene que existir
+00:07:28.160 sino estar operativo si no no
+00:07:30.000 arrancarías efectivamente aquí lo vemos
+00:07:32.360 veis que además esto es un fichero vsam
+00:07:35.000 por qué porque tiene su classter aquí
+00:07:37.000 entonces este es el fichero de
+00:07:39.199 configuración que se basa el sistema
+00:07:41.560 operativo para leer la configuración de
+00:07:44.599 los dispositivos y saber Pues dónde está
+00:07:47.639 cada dirección y qu y cada dirección Qué
+00:07:50.520 dispositivo está escuchando Así que
+00:07:52.280 ahora que sabemos Cuál es el dato del I
+00:07:54.879 odf podemos abrir el hcd con el y odf 99
+00:08:00.759 en este caso así que vamos a la opción
+00:08:03.000 more aquí la opción 4
+00:08:05.400 hcd y aquí nos aparece un iod f file que
+00:08:09.000 es 00w Pero esto es un fichero vacío si
+00:08:12.599 pongo iod f99 y quito este work a partir
+00:08:16.639 de este momento al pulsar intro lo que
+00:08:19.639 he hecho ha sido cargar la definición
+00:08:21.479 actual del sistema Así que aquí Es
+00:08:23.479 cuando podemos ver con la opción uno
+00:08:27.199 podemos definir modificar o ver la
+00:08:30.720 configuración los datos de configuración
+00:08:32.799 en este caso así que opción uno y enter
+00:08:36.000 y aquí tenemos cinco
+00:08:39.080 apartados el primero es la configuración
+00:08:42.240 propia del sistema operativo es decir
+00:08:44.600 donde definimos las consolas maestras
+00:08:47.440 donde definimos genéricos de sistema Por
+00:08:51.080 ejemplo donde definimos esotéricos esto
+00:08:54.200 es me hace mucha gracia porque un
+00:08:56.000 esotérico es un nombre que yo doy a un
+00:08:58.720 conjunto de dispositivos por ejemplo un
+00:09:01.120 esotérico que ya viene el sistema
+00:09:03.200 operativo se llama sda y sda que viene
+00:09:06.480 de sis Direct Access es un esotérico que
+00:09:10.399 apunta a los discos Así que si yo pongo
+00:09:13.320 en el jcl Pues un dataset coma unit ig a
+00:09:16.760 6da ya sabe el sistema que estoy
+00:09:19.519 apuntando a un disco en concreto De
+00:09:21.720 igual forma yo puedo crear un esotérico
+00:09:23.600 nuevo llamado por ejemplo cartucho Y
+00:09:26.320 hacer que las unidades que sean 34 90 de
+00:09:30.120 unidades de cinta de cartuchos en lugar
+00:09:32.279 de llamar de poner la dirección de de
+00:09:34.800 cada uno de los dispositivos lo llamo
+00:09:36.600 cartucho Y entonces el sistema ya sabe
+00:09:39.200 que cuando vaya a pedir un cartucho voy
+00:09:41.720 a ir a las direcciones de esas cintas
+00:09:44.279 sin entrar en más detalles si vamos aquí
+00:09:46.000 a la opción uno para entrar a la
+00:09:47.399 configuración sistema operativo vemos
+00:09:49.839 que hay una configuración llamada os 390
+00:09:52.079 Así que entramos con
+00:09:53.320 ella y aquí podemos por ejemplo en este
+00:09:56.560 caso trabajar con los edts
+00:10:00.440 aquí tenemos un edt creado que con una
+00:10:03.000 barra entramos en él Y podemos aquí por
+00:10:05.760 ejemplo trabajar con esotéricos con
+00:10:07.560 genéricos etcétera por ejemplo Aquí
+00:10:09.240 vamos a los esotéricos y veis que hay
+00:10:12.440 tres definidos dust sda y Bio Y si yo
+00:10:17.240 entro en cada uno de ellos En dust por
+00:10:19.519 ejemplo podemos asignar dispositivos de
+00:10:22.839 definidos propiamente o bien ver los que
+00:10:25.839 están asignados si hacemos aquí un
+00:10:28.320 cinco nos dice por ejemplo que que dust
+00:10:31.399 hace referencia a los al dispositivo 300
+00:10:34.839 y 25 esa decimal hacia adante que van a
+00:10:38.079 ser tener un nombre genérico de un disco
+00:10:40.000 3390 que es un dispositivo 3390 de
+00:10:43.440 acuerdo De igual forma yo puedo ver aquí
+00:10:45.639 en dis
+00:10:48.360 sda puedo ver también Qué es qué
+00:10:51.600 asignado veis aquí por ejemplo sda tiene
+00:10:54.600 la dirección 300 y la dirección 0 a 80
+00:10:57.680 os suena esta dirección 0 80 claro os
+00:11:00.880 suena porque los discos empiezan en este
+00:11:04.000 caso del 0 a80 al 0a 90c de acuerdo
+00:11:08.040 Entonces si yo en un jcl hago referencia
+00:11:11.200 al esotérico unit ig a 6da el zos va a
+00:11:16.560 saber
+00:11:17.959 exactamente qué Rango de direcciones de
+00:11:20.440 discos puede utilizar y y así es como se
+00:11:23.040 define un esotérico y Bueno aquí el
+00:11:24.839 Virtual input output pues me imagino que
+00:11:26.959 también tendrá sus esotéricos definidos
+00:11:29.880 en este caso solo la dirección 300 de
+00:11:32.720 acuerdo
+00:11:34.320 bien Por otra parte yo aquí puedo
+00:11:37.320 también mirar Puedo trabajar con
+00:11:39.560 consolas aquí por ejemplo me imagino que
+00:11:41.920 estarán definidas la consola
+00:11:44.519 700 porque es la primera que que se
+00:11:47.480 levanta con Master console Así que si
+00:11:49.279 voy aquí a la opción 6 Word with
+00:11:51.600 consoles veis que tengo las 700 y las
+00:11:54.120 701 son dos consolas maestras para que
+00:11:57.480 el sistema operativo Deje su su log su
+00:12:00.000 sislog ahí que como todos sabéis la
+00:12:03.399 consola maestra es la dirección 700 que
+00:12:05.800 es está veis que pone aquí deun 700 por
+00:12:09.519 lo tanto para que el sistema sepa dónde
+00:12:12.959 ir dejando estos logs previamente hemos
+00:12:15.399 tenido que entrar en el
+00:12:17.320 hcd para definir estas consolas como
+00:12:23.240 como consolas maestras de
+00:12:25.440 acuerdo si que por ejemplo podos ver
+00:12:28.160 otra cosa pues podemos ver los genéricos
+00:12:30.120 por vemos qué tipo de genéricos existen
+00:12:33.240 Pues aquí tenemos ctc Osa Mira 1403 una
+00:12:36.800 impresora 2540 es un leor de tarjetas
+00:12:40.040 3277 es otro tipo de terminales 338 3390
+00:12:43.959 son discos estos son los dispositivos
+00:12:46.680 genéricos que que están definidos dentro
+00:12:49.279 del sistema operativo V por ejemplo que
+00:12:50.880 hay un genérico que es 3490 esto es un
+00:12:53.240 una unidad de cinta Entonces yo defino
+00:12:55.320 primero los genéricos y por ejemplo aquí
+00:12:56.920 dentro Yo puedo entrar y puedo decir que
+00:13:00.760 las
+00:13:01.800 direcciones del 580 hasta el en este
+00:13:05.760 caso 580 y F porque son 16 direcciones
+00:13:09.639 son del modelo 3490 y De igual forma yo
+00:13:13.120 aquí he definido que aquí por ejemplo
+00:13:15.199 Solo dos cintas Aunque el sistema puede
+00:13:19.160 montar hasta 16 distintas que sean del
+00:13:22.279 modelo
+00:13:23.639 3490 veis un poco la diferencia no veis
+00:13:26.360 un poco la conexión entre la
+00:13:27.920 configuración de definida y la
+00:13:30.160 configuración real pues se define aquí
+00:13:33.920 aquí salimos con un f3 y bueno la parte
+00:13:37.480 uno de operating System configuration ya
+00:13:39.480 la hemos visto ahora la opción dos nos
+00:13:42.279 la saltamos porque la opción dos es
+00:13:44.240 cuando tengo switches de ficon o antes
+00:13:49.199 los directores escon los escon directors
+00:13:51.440 de toda la vida en en los que eran muy
+00:13:54.680 importantes cuando yo tenía dos o más
+00:13:57.480 cpus y dos o más dispositivos de disco
+00:14:00.880 de cinta y tal que compartían en un
+00:14:03.160 cplex paralelo por ejemplo Entonces yo
+00:14:05.240 podía tener las dos cpus esa esos
+00:14:07.639 canales que salían de las cpus iban
+00:14:09.839 directamente al a a estos switches que
+00:14:13.120 eran unos armarios frigoríficos con un
+00:14:15.240 montón de conectores escon y ficon y lo
+00:14:17.639 que hacían estos sistemas eran eh
+00:14:19.920 generar un zoning como la red San en la
+00:14:22.600 red San de de almacenamiento de disco
+00:14:25.519 normal y corriente en la cual yo podía
+00:14:28.279 crear un para que una cpu o sea un
+00:14:30.839 mindframe Viera unos determinados
+00:14:33.120 dispositivos y el otro mindframe Viera
+00:14:34.920 otros dispositivos o que compartieran
+00:14:37.320 los dos mainframes los dispositivos
+00:14:38.959 entre sí Y esa serialización la
+00:14:41.800 gestionaba el sysplex para que un una
+00:14:44.880 escritura de un mindframe no jodiera
+00:14:47.160 otra escritura proveniente de otro
+00:14:48.920 mindframe y guardar siempre una
+00:14:50.680 integridad de datos Y entonces los
+00:14:52.920 switches lo que hacían era gestionar esa
+00:14:54.560 conectividad aquí como tenemos una
+00:14:56.560 instalación única con unos discos únicos
+00:14:58.759 pues no entramos porque de hecho si
+00:15:00.199 vamos aquí a la opción dos seguro que no
+00:15:01.560 hay ninguno definido veis no hay ninguno
+00:15:04.160 definido Por otra parte nos vamos a la
+00:15:06.399 opción tres processors aquí es donde
+00:15:08.920 definimos el procesador físico de
+00:15:11.680 nuestra máquina y Cuántas tarjetas
+00:15:14.240 físicas están conectadas al bus que de
+00:15:17.959 las de las que esas tarjetas físicas no
+00:15:19.920 salen tarjetas de red en forma de en eh
+00:15:22.519 unidades Osa o tarjetas de fibra para
+00:15:25.600 por ejemplo entornos ficon que son los
+00:15:28.199 que se conectan a los dispositivos
+00:15:30.040 externos como discos por ejemplo en
+00:15:32.040 museo tengo un unos dispositivos de
+00:15:34.399 disco de s8000 que están conectados por
+00:15:36.959 ficon y luego tengo otros dispositivos
+00:15:39.199 como terminales adicionales etcétera que
+00:15:41.720 están conectados a un s 264 que son
+00:15:43.880 dispositivos de fibra también que son
+00:15:45.440 escon entonces aquí en la opción tres
+00:15:48.800 procesadores
+00:15:50.440 definimos los diferentes dispositivos
+00:15:53.279 físicos es decir la tarjetería física
+00:15:55.800 las l pares que vamos a tener
+00:15:57.920 funcionando y los Channel paths o los
+00:16:01.079 caminos de canal de cada uno de esas
+00:16:03.360 tarjetas físicas que conforman porque
+00:16:05.560 una tarjeta física puede tener por
+00:16:07.279 ejemplo cuatro conectores ficon Entonces
+00:16:09.720 yo tengo una tarjeta ficon pero con
+00:16:12.399 cuatro pechs porque cada Puerto físico
+00:16:15.680 es un pechis de acuerdo Entonces aquí
+00:16:18.160 por ejemplo en la opción 3 hay definido
+00:16:20.480 Mira esto por ejemplo es una definición
+00:16:22.440 de un multiprise 3000 que es cuando en
+00:16:25.120 su día el la persona que creó el adcd
+00:16:28.920 utilizó esta máquina para crearlo qué
+00:16:30.920 pasa que en el caso del Hércules el tipo
+00:16:33.360 de máquina es totalmente irrelevante
+00:16:35.720 porque al final lo que está haciendo es
+00:16:37.639 una emulación sin embargo si yo este
+00:16:40.319 sistema operativo lo tendría corriendo
+00:16:42.279 en el mindframe Real del museo tendría
+00:16:44.720 que coincidir el tipo y modelo de cpu
+00:16:47.519 que tengo yo con el tipo y modelo de del
+00:16:50.079 I odf que yo Define aquí porque de lo
+00:16:52.440 contrario daría un error porque no
+00:16:54.040 encontraría los buses no encontraría las
+00:16:56.079 tarjetas etcétera entonces si yo aquí
+00:16:57.959 entro en el price 3000 h30 podemos ver
+00:17:01.639 Ver la definición del procesador ver si
+00:17:03.839 hay si hay conexiones ctc entre los
+00:17:06.559 sistemas podemos trabajar con las
+00:17:08.280 particiones eh que tengamos en este caso
+00:17:10.760 como es Hércules solo tiene una y en
+00:17:12.400 este caso del adcd solo tiene una
+00:17:14.880 podemos
+00:17:15.839 eh trabajar con los diferentes caminos
+00:17:19.199 de los canales podemos trabajar con los
+00:17:21.319 diferentes dispositivos etcétera Así que
+00:17:23.480 podemos por ejemplo vamos vamos a ver
+00:17:25.160 por ejemplo eh la opción seis que es
+00:17:28.119 View procesor definition y aquí te dice
+00:17:31.320 pues el tipo de modelo tipo de
+00:17:32.720 procesador la configuración es basic si
+00:17:35.120 es basic significa que no tiene el pares
+00:17:37.440 es un single image Mode vale o sea
+00:17:40.200 funciona en modo single image en imagen
+00:17:42.480 única ya veis que esta configuración se
+00:17:44.960 creó el 7 de diciembre de 2014 a las
+00:17:48.919 Mira 1459 por otra parte si vamos aquí
+00:17:53.280 de nuevo podemos ver también si tenemos
+00:17:56.200 conexiones ctcs No tenemos ninguna es
+00:17:59.280 decir el sistema ya veis que tenemos ctc
+00:18:02.039 o fiber Channel size y CNC o fcv del del
+00:18:07.880 otro lado del espectro es decir un ctc
+00:18:11.240 es un Channel to Channel Entonces esto
+00:18:13.520 significa que yo tengo dos cpus dos m
+00:18:16.559 frames funcionando y podría conectar un
+00:18:19.280 canal de fibra de uno de los M frames al
+00:18:21.640 otro para utilizarlo para hacer señale o
+00:18:23.960 sea chinal por ejemplo del entorno xtf
+00:18:26.840 de un
+00:18:27.760 slex esto ya quizás me anime a hacer un
+00:18:32.039 vídeo para deciros Cómo crear dos
+00:18:34.799 sistemas Hércules y que con ctc se vean
+00:18:37.760 entre ellos y así tengas un sistema slex
+00:18:40.400 base porque Un s paralelo no puede
+00:18:42.280 emular Hércules a día de hoy porque no
+00:18:44.200 existe el entorno de couling facility
+00:18:47.400 que es una partición específica para
+00:18:50.640 manejar el dat sarin y un montón de de
+00:18:53.520 historias pero sí nos permite Hércules
+00:18:55.640 en este caso crear un entorno de slex
+00:18:58.320 base es decir un ctc en anillo para que
+00:19:03.320 dos entornos Hércules puedan atacar los
+00:19:06.000 mismos discos y que uno no pise al otro
+00:19:08.760 utilizando estos canales ctc para enviar
+00:19:11.799 señales de sincronización entre los
+00:19:15.000 diferentes cpus Pero bueno eso Y quizás
+00:19:17.520 me anime a hacer un vídeo porque pero
+00:19:19.080 ese vídeo tendrá muchísima chicha porque
+00:19:21.159 crear dos instancias ccul desde cero y
+00:19:23.600 crear su ctc tiene ese uniga de acuerdo
+00:19:25.960 así que bueno aquí en nuestro adcd no
+00:19:27.960 hay nada definido ni falta que hace
+00:19:30.400 porque es una ya hemos visto que el
+00:19:32.159 sistema era en modo basic es decir en
+00:19:34.799 modo single image nuestro equipo
+00:19:36.960 multiprise solo tiene una única LP por
+00:19:39.240 lo tanto no tiene ctcs ni nada
+00:19:41.640 más bien volviendo a la
+00:19:45.200 configuración Podemos mirar aquí incluso
+00:19:48.400 trabajar con particiones que entiendo
+00:19:50.039 que solo tendrá una partición o en este
+00:19:53.039 caso ninguna perdón porque es porque es
+00:19:54.880 basic porque es una única un único
+00:19:57.520 entorno no está partido podemos salir
+00:19:59.720 ación nu para mirar qué canales hay
+00:20:02.520 definidos y efectivamente aquí hay
+00:20:05.320 canales cvc y CNC que son escon luego
+00:20:09.559 tenemos de o sea el 4 5 y 6 son canales
+00:20:13.679 eson que son dedicados a la propia
+00:20:16.039 partición si si tendríamos más de una
+00:20:18.240 partición podríamos poner que fueren
+00:20:20.320 sarez o sea shr pero en este caso son
+00:20:22.559 dedicados Por qué Porque el sistema es
+00:20:24.320 básico como ya he dicho luego tenemos el
+00:20:26.720 canal 0e y 0f de tipo blog es decir son
+00:20:30.440 canales paralelos bus y tag por otro
+00:20:33.880 lado tenemos el canal FC que es eio que
+00:20:36.120 es un emulated input output porque el
+00:20:38.520 multiplace 3000 tenía una característica
+00:20:41.640 para emular un canal eh utilizando el
+00:20:44.840 programa que creaba un canal en memoria
+00:20:47.280 para poder tener un canal de alta de
+00:20:49.360 alta velocidad cosa que aquí no se
+00:20:51.159 utiliza y luego Tenemos aquí el canal fd
+00:20:54.840 que es dsd que este es un canal muy
+00:20:57.960 específico para entornos multiprise 2000
+00:21:00.600 y multiprise 3000 porque el dsd es un
+00:21:04.080 Direct storage device es un canal que
+00:21:09.039 tiene acceso a una controladora scassi
+00:21:11.840 del que
+00:21:13.240 venden discos duros Entonces el
+00:21:15.799 multiplace 3000 era una gozada de
+00:21:17.520 máquina porque en una especie como de
+00:21:19.480 Torre grande al estilo del del s400 170
+00:21:23.640 que os enseñé en el vídeo del museo
+00:21:26.240 dentro del propio mindframe tiene los
+00:21:28.240 discos asociados Entonces yo puedo tener
+00:21:30.360 dispositivos externos y discos externos
+00:21:32.480 pero también puedo tener disco interno
+00:21:34.400 Entonces el dsd era un tipo de canal que
+00:21:37.720 solo tenían los multiprise porque era un
+00:21:40.080 mindframe de potencia discreta que te
+00:21:42.559 permitía Eh no tener que pagar tantísimo
+00:21:45.320 dinero por una instalación mindframe
+00:21:46.919 enorme y tenía tanto canales scon como
+00:21:50.120 paralelos para conectar las impresoras
+00:21:52.159 antiguas y otros sistemas que podrías
+00:21:54.320 tener además de tener tus propios discos
+00:21:57.840 internos dentro de la de la propia Torre
+00:22:00.679 dentro del propio mindframe entendéis
+00:22:02.919 Entonces el dsd es un canal específico
+00:22:05.640 para digamos que el sistema operativo
+00:22:08.520 utilizando la dirección fd pueda acceder
+00:22:11.400 a la controladora scassi de esos discos
+00:22:13.679 scassi internos que tenía la máquina de
+00:22:16.360 acuerdo así que bueno aquí hemos
+00:22:17.760 definido los canales podemos ver aquí
+00:22:20.200 por ejemplo en la opción de 10 podemos
+00:22:23.159 trabajar con los dispositivos que están
+00:22:26.760 conectados porque ojo yo puedo definir
+00:22:28.600 dispositivos y y luego no conectarlos
+00:22:30.279 pero bueno sería de género bobo Así que
+00:22:32.400 aquí la opción 10 10 nos aparece una
+00:22:34.799 lista de todos los dispositivos que
+00:22:36.559 tiene definidos el mindframe y que están
+00:22:38.840 actualmente conectados Ya ves por
+00:22:40.720 ejemplo que tenemos direcciones del 120
+00:22:43.760 a 127 de unos discos antiguos 3380 que
+00:22:47.679 alguien definiría en su día Aunque
+00:22:49.799 nosotros no los utilizamos luego veis
+00:22:51.760 que tenemos direcciones 300 con 25
+00:22:54.320 discos que son de discos 3390 os
+00:22:56.880 acordáis de la dirección
+00:22:59.120 de los esotéricos 6da y dust que hacían
+00:23:02.600 referencia a estos discos Pues aquí
+00:23:04.880 están luego Aquí tenemos cintas de la
+00:23:07.880 580 a la
+00:23:09.279 580f de modelo 3490 y la 590 también
+00:23:13.279 hasta 590 F porque son 16 dispositivos
+00:23:16.640 del de un entorno de cinta más nuevo que
+00:23:19.240 es el 3590 luego Aquí veis todos los
+00:23:22.480 terminales que hay
+00:23:25.640 definidos y aquí empiezan los discos
+00:23:30.080 080 Y por último donde acaban tenemos
+00:23:33.320 los ctcs recordáis que estas dos
+00:23:35.240 direcciones son las que utilizamos para
+00:23:36.799 nuestro Lan Chanel Station Pues aquí
+00:23:38.919 están que sepáis que hay hay definidos
+00:23:41.240 hasta el dos más y luego tenemos del e40
+00:23:43.679 41 48 43 o sea que podemos conectar
+00:23:46.640 hasta cuatro tarjetas de red con cuatro
+00:23:50.159 ips distintas Dentro de este mismo
+00:23:51.880 entorno con esta
+00:23:53.720 configuración
+00:23:56.360 bien Y por último la opción 12 es la
+00:24:00.039 opción de trabajar con subsistemas de
+00:24:02.240 canales Esto es lo que hemos visto antes
+00:24:05.240 así que salimos de aquí y bueno el
+00:24:08.480 siguiente paso que tenemos que dar en
+00:24:09.919 este caso es el paso de definir las
+00:24:13.440 unidades de control que es esto de aquí
+00:24:15.799 la opción cuatro bien la opción
+00:24:18.679 cuatro definimos lo que se llama ese
+00:24:22.720 armario que se pone delante de los
+00:24:25.720 dispositivos eh finales como por ejemplo
+00:24:29.360 discos en el que gestiona pues la cache
+00:24:32.159 de disco La serialización de entrada y
+00:24:34.440 salida etcétera es lo que se llama una
+00:24:36.360 unidad de control como su nombre lo
+00:24:38.080 indica en las unidades de cinta antiguas
+00:24:40.200 las 3420 que era un tren de Cintas de
+00:24:42.559 carrete luego que eran las unidades como
+00:24:45.799 ya os digo 3420 había un mueble
+00:24:49.080 Exactamente igual de grande pero no
+00:24:50.440 tenía ninguna unidad de cinta metida Y
+00:24:52.600 esa esa unidad que era una 3803 era la
+00:24:55.679 unidad de control de esas cintas físicas
+00:24:58.840 hoy en día qué es lo que pasa que la
+00:25:00.200 unidad de control y el dispositivo está
+00:25:02.120 en la misma en el mismo armario en
+00:25:04.919 nuestro caso concreto los discos de
+00:25:07.159 s8000 la unidad de control podría
+00:25:09.600 llamarse esos dos equipos Power 5 que
+00:25:13.200 tenían el software de virtualización de
+00:25:15.799 almacenamiento que luego generaban los
+00:25:18.399 discos virtuales 3390 que veía el el
+00:25:21.720 equipo mindframe Pues aquí es
+00:25:24.120 prácticamente lo mismo es que lo que qué
+00:25:26.159 es lo que ocurre aquí pues aquí por
+00:25:27.159 ejemplo se han definido una serie de
+00:25:28.840 unidades de control en este
+00:25:31.039 caso de tipo 3990 que son las que
+00:25:35.600 gestionan los discos que dependen de la
+00:25:38.440 dirección en este caso 120 121 etcétera
+00:25:41.320 aquí por ejemplo veis que las unidades
+00:25:43.360 de terminal 3270 tiene como unidad de
+00:25:47.039 control la
+00:25:48.000 3174 que era una unidad de control
+00:25:50.880 coaxial en el que conectaba los
+00:25:53.240 terminales a cada uno de los puertos
+00:25:55.240 coaxiales y resulta que la configur el
+00:25:58.559 puerto coasi al cer era la unidad lógica
+00:26:01.080 00 pero si tú decías que la unidad de
+00:26:04.559 control era la 700 Pues esa ese primer
+00:26:08.480 Puerto cero coaxial era el 700 el puerto
+00:26:11.200 coaxial que está justo debajo que era el
+00:26:13.880 la unidad lógica 01 era El 701 y el de
+00:26:17.000 abajo 702 703 704 entonces tú en una
+00:26:20.760 unidad de control real tenías un montón
+00:26:23.320 de cables coaxiales que iban a cada uno
+00:26:25.279 de los terminales físicos de la que de
+00:26:27.480 los que la gente lo Lu trabajaba o en
+00:26:29.559 este caso como es la edicción 700 será
+00:26:31.559 la consola maestra que estaba en el
+00:26:33.000 departamento de operación de acuerdo
+00:26:34.720 Entonces aquí se definen las unidades de
+00:26:36.880 control que van a controlar cada uno de
+00:26:39.080 los dispositivos De igual forma los
+00:26:41.840 discos que tenemos definidos en Hércules
+00:26:43.760 que son estos de aquí del
+00:26:45.679 a80 al a80 F son discos con cuya unidad
+00:26:50.960 de control son
+00:26:53.240 3990 que la 3990 Era también una unidad
+00:26:56.760 de control enorme en el que se conectaba
+00:26:58.600 tanto cables ficon como
+00:27:00.640 escon y que por otro lado luego tenían
+00:27:03.120 una conexión con otros con unos cables
+00:27:06.000 bus y tag muy específicos al tren de
+00:27:08.799 discos 3990 que teníamos de hecho en
+00:27:12.679 este canal en en la parte de Blog puse
+00:27:16.159 unas fotos de lo que era una unidad 3990
+00:27:19.080 real los discos 3390 etcétera O sea que
+00:27:22.279 digamos para que os hagáis una
+00:27:23.720 composición de lugar de cómo estaban las
+00:27:26.120 unidades de control conectadas a cada
+00:27:27.600 uno de los disp
+00:27:28.960 Claro en el caso de Hércules Pues eso ya
+00:27:31.720 no tiene nada que ver porque todo esto
+00:27:33.880 está emulado por el propio emulador O
+00:27:35.880 sea no tenemos una unidad de control
+00:27:37.720 real es el Hércules quien emula una 3990
+00:27:41.320 para que los discos que estén en esta
+00:27:43.399 configuración que veis aquí puedan verse
+00:27:46.600 desde el entorno de Hércules hacia el
+00:27:49.600 zos y De igual forma Pues aquí tenemos
+00:27:52.039 los ctc y poco
+00:27:54.640 más bien pues por último aquí llegamos a
+00:27:57.880 la parte io de bices que es los
+00:28:00.039 dispositivos de entrada y salida
+00:28:01.279 entramos aquí con un cinco y aquí es
+00:28:03.679 donde están definidos todos los
+00:28:05.600 dispositivos que el sistema operativo B
+00:28:08.120 como podéis Ver algunos tienen unidad de
+00:28:10.320 control porque está aquí y otros no
+00:28:12.360 tienen nada porque por ejemplo en el
+00:28:13.880 caso de la impresora 1403 n1 esta
+00:28:17.720 impresora concretamente tiene su propia
+00:28:20.440 unidad de control que es la suya la 1403
+00:28:23.320 entonces no es necesario que pongamos
+00:28:25.080 aquí ningún tipo de unidad de control de
+00:28:27.440 igual forma si vamos hacia abajo podemos
+00:28:29.679 ver pues los diferentes terminales con
+00:28:31.320 diferentes unidades de control y luego
+00:28:33.039 por ejemplo habéis visto que los
+00:28:34.080 primeros del 0 a 80 al 0 a 80f tiene una
+00:28:38.000 unidad de control que es la 3390 de ese
+00:28:40.519 tipo pero sin embargo por ejemplo de El
+00:28:42.720 0 a 90 con 96 unidades adicionales No
+00:28:46.600 hay ninguna conexión aquí es decir el
+00:28:50.120 css no tiene constancia es decir el
+00:28:52.760 Channel subsystem no tiene constancia de
+00:28:55.399 su existencia pero el sistema operativo
+00:28:57.399 sí tiene estacia de subsistencia por eso
+00:28:59.600 ahí hay un uno entonces el Hércules ve
+00:29:02.480 esos discos ahora bien si yo esta misma
+00:29:05.080 configuración la clonar en mi equipo de
+00:29:09.080 del museo no funcionaría porque los
+00:29:11.399 discos del a90 con 96 discos eh
+00:29:15.440 adicionales al no tener una unidad de
+00:29:17.880 control asociada no hay un dispositivo
+00:29:20.039 físico por el que salir entendéis la
+00:29:22.840 diferencia no pero bueno en este caso
+00:29:24.559 concreto no lo no la tiene ni falta que
+00:29:26.640 hace porque estamos en un entorno de
+00:29:28.159 Hércules de emulación de acuerdo pero es
+00:29:31.399 muy muy importante que si yo en la
+00:29:34.720 realidad Quiero crear o Añadir unos
+00:29:38.159 discos nuevos tengo que definir una
+00:29:40.159 unidad de control y esa unidad de
+00:29:42.720 control se define por el número de
+00:29:44.720 canales que le digo yo por donde tiene
+00:29:47.159 que ir de acuerdo es decir aquí en la
+00:29:49.720 parte de cuatro control units
+00:29:52.480 seguramente si entramos en la esta en la
+00:29:55.679 a80
+00:29:58.320 que sí que tiene definida una unidad de
+00:29:59.960 control como podéis ver porque tiene el
+00:30:02.640 Channel subsistem a uno si yo voy aquí y
+00:30:06.760 entro con una barra puedo ver
+00:30:10.559 incluso la definición de la unidad de
+00:30:13.200 control con la opción 6 y aquí me está
+00:30:16.240 diciendo por qué canal físico estoy
+00:30:19.799 saliendo que en este caso es
+00:30:21.559 FC recordáis que el canal
+00:30:24.399 FC era el canal el cual aquí en la
+00:30:29.399 opción tres procesadores nos íbamos a la
+00:30:31.840 parte de Channel subsistem aquí Channel
+00:30:35.480 paths la opción nu9 que era la emulated
+00:30:38.960 io Pues aquí está esta justo es la
+00:30:42.240 definición en la que mi dispositivo de
+00:30:46.120 memoria 0 a 80 que es un disco está
+00:30:50.159 conectada a una unidad de control 080
+00:30:53.039 también de memoria que a su vez está
+00:30:55.039 conectado a un a un canal físico que es
+00:30:57.639 el FC y así digamos hemos transicion de
+00:31:01.919 la parte lógica a la parte física igual
+00:31:04.960 es un poquito de complicado de entender
+00:31:07.240 pero es en el caso de Hércules como no
+00:31:09.840 hay una transición física Porque no
+00:31:11.519 tenemos un mindframe por detrás todo eso
+00:31:13.600 lo hace el Hércules en su en su
+00:31:16.200 definición interna Y tal Pero veis un
+00:31:19.559 poco la diferencia No si yo tengo una
+00:31:21.360 tarjeta
+00:31:22.279 física definida en la dirección FC Y esa
+00:31:25.559 tarjeta física tiene un canal de fibra
+00:31:28.080 que va a un disco Yo sé perfectamente
+00:31:31.960 que si quiero llegar a ese disco tengo
+00:31:33.919 que definir una unidad de control
+00:31:35.440 conectada a este canal y luego definir
+00:31:37.840 un dispositivo conectada a esa unidad de
+00:31:39.480 control para hacer esa cadena de de
+00:31:42.880 definición y así tener todos los
+00:31:44.559 dispositivos perfectamente controlados y
+00:31:46.760 gestionados de acuerdo Así que vamos
+00:31:49.159 aquí a la opción c y como podéis ver
+00:31:51.200 pues tenemos aquí todos los dispositivos
+00:31:53.559 definidos y nuestros canales ctc bien
+00:31:56.760 pues esto es en cuanto a la definición
+00:31:58.480 de acuerdo vamos a definir un disco por
+00:32:01.080 ejemplo nuevo vale bien pues supongamos
+00:32:03.880 que vamos a Añadir un dispositivo nuevo
+00:32:06.279 imagínate pues unos imaginaos pues unos
+00:32:08.679 discos entonces aquía cco eh Define yo
+00:32:11.840 devices no vamos a definir ninguna
+00:32:14.080 unidad de control ni nada porque repito
+00:32:16.440 estamos bajo Hércules y bajo Hércules
+00:32:18.600 esto no importa así que damos al f11 y
+00:32:22.039 mira me está diciendo que en este
+00:32:24.600 momento vamos a va a crear el fichero de
+00:32:26.720 work de trabajo Vale pues le voy a decir
+00:32:28.720 que sea el 99 y el volumen SB sis 1 que
+00:32:33.679 es el volumen donde se igan todas las
+00:32:35.760 configuraciones del zos Así que le damos
+00:32:37.919 aquí al enter vale Y ya se ha definido y
+00:32:40.279 ahora el dispositivo pues por ejemplo
+00:32:42.080 quiero que los discos sean del f00 que
+00:32:44.919 hayan 16 discos y del dispositivos que
+00:32:48.320 sean
+00:32:49.440 3390 y le das al enter ahora tenemos que
+00:32:54.840 conectar esos dispositivos a la
+00:32:56.720 definición del del el sistema operativo
+00:32:58.440 al I odf Así que damos aquí y uno Select
+00:33:03.679 Connect offline no dinámicos sí local
+00:33:08.880 tal no que sean compartidos Sí pues
+00:33:12.279 enter ahora ya este punto nos va a decir
+00:33:15.679 si queremos que esos discos nuevos
+00:33:17.360 tengan unos
+00:33:18.559 esotéricos asignados Pues sí vamos a
+00:33:20.919 decirle que como son discos pues quiero
+00:33:22.799 que sean
+00:33:23.720 dust que también sean System Direct
+00:33:27.360 Access y virtual input
+00:33:30.159 output ya está Yes enter y ahora
+00:33:34.840 enter y ahora si venimos aquí veremos
+00:33:38.240 que se han definido los discos del
+00:33:41.279 b00 al b00 F y veis que tiene un uno
+00:33:46.600 aquí es decir que en la siguiente ipl
+00:33:49.720 cuando definamos este sistema los verá y
+00:33:53.519 entonces yo en el Hércules puedo crearme
+00:33:55.360 discos que dependan de la dirección b00
+00:33:57.960 C de acuerdo Así que voo aquí ahora que
+00:34:02.000 hemos modificado el fichero de trabajo
+00:34:05.240 Es cuando con la opción dos
+00:34:07.839 activamos el fichero entonces hacemos un
+00:34:10.560 primero bu Production I definition file
+00:34:13.320 o sea se va a crear un iod f
+00:34:16.719 nuevo vale
+00:34:20.159 edt not token me da igual Vale pues le
+00:34:23.199 das al enter vale message
+00:34:29.599 f3 vale Este es el jcl que va a crear la
+00:34:34.119 nueva definición de nuestro I
+00:34:37.639 odf y aquí le vamos a decir el nombre de
+00:34:40.839 nuestro I odf que va a ser por ejemplo
+00:34:42.960 el sis 1. iod F 98 no vamos a no vamos a
+00:34:48.879 machacar el el 99 de acuerdo y y en qué
+00:34:52.839 volumen serial Pues en el SB sis 1
+00:34:56.440 recordar que el s61 es la dirección
+00:35:01.800 082 que casualmente es la que tiene el
+00:35:04.960 loaz par porque la 082 es donde reside
+00:35:09.040 los miembros loaz y donde reside el
+00:35:11.839 fichero de configuración esto es
+00:35:14.119 obligatorio esto se os tiene que que
+00:35:16.960 Grabar en la mente como si fuera vamos
+00:35:20.200 es importantísimo para que el sistema
+00:35:22.880 funcione el disco de configuración del
+00:35:26.160 iod F y el tiene que residir en el mismo
+00:35:29.079 disco y así en el lo parm al poner el
+00:35:31.599 disco 082 que es el
+00:35:34.800 sb1 aquí es cuando tenemos que poner el
+00:35:37.200 disco s1 para que la configuración esté
+00:35:40.359 en el mismo disco de
+00:35:43.160 acuerdo ya le damos aquí enter aquí es
+00:35:46.520 cuando lo va a
+00:35:47.720 definir y creada La
+00:35:50.760 configuración bien la segunda opción que
+00:35:52.920 es build el I CDs esto es el código
+00:35:58.200 que Define todas las configuraciones de
+00:36:01.440 unidades de control procesadores elep
+00:36:03.440 pares etcétera esto también hay que
+00:36:05.319 definirlo entonces hacemos un dos bu I
+00:36:07.680 CDs en esta
+00:36:11.920 máquina y aquí hay cuatro entradas de
+00:36:15.200 acuerdo estas cuatro entradas son las
+00:36:17.359 que están asociadas al Support Element
+00:36:20.359 Entonces yo aquí elijo por ejemplo la a
+00:36:22.760 la a0 la elijo aquí update y ocds
+00:36:29.000 ahora va a enviar la información de este
+00:36:32.000 sistema Aquí vamos a poner por
+00:36:35.640 ejemplo
+00:36:37.599 actualización vamos a poner mejor en
+00:36:41.680 mayúscula
+00:36:43.960 actualización
+00:36:46.160 discos
+00:36:48.119 b00 y nada leamos
+00:36:51.079 aquí esto por ejemplo son Dual es para
+00:36:55.480 que escriban los dos dos su el aquí
+00:36:58.319 hacer un switch del I CDs en el
+00:36:59.880 siguiente poweron reset está puesto a no
+00:37:02.040 para que no para que no cambie la
+00:37:04.359 configuración y escribe cs preparation
+00:37:07.079 from gr y no pues eso estas
+00:37:09.240 configuraciones son a nivel del
+00:37:10.960 mindframe de acuerdo a nivel del
+00:37:13.200 mindframe real así que de hecho esto
+00:37:16.400 probablemente no nos funcione bien en
+00:37:17.839 Hércules porque va a querer conectarse
+00:37:20.119 al suport Element del mindframe y no lo
+00:37:21.839 va a encontrar por qué Porque el
+00:37:22.960 Hércules no tiene ningún Support Element
+00:37:24.960 Así que vamos a darle aquí al enter
+00:37:26.240 bueno se ha lanzado el el
+00:37:28.760 iocs se ha sometido pero no se ha
+00:37:31.319 lanzado Por qué no se ha lanzado porque
+00:37:32.960 aquí nos está diciendo que mientras
+00:37:35.599 sigamos dentro del hcd el dataset del I
+00:37:39.640 odf está pillado Entonces hasta que no
+00:37:41.319 salgamos esto no va no va a progresar
+00:37:43.720 por lo tanto lo que hacemos Es volvemos
+00:37:46.000 aquí
+00:37:47.599 salimos salimos salimos y salimos y
+00:37:52.000 ahora ya veréis
+00:37:54.319 có ocds endz
+00:37:58.119 vamos a ver si nos ha dejado alguna
+00:37:59.960 pista en el sdsf en la opción
+00:38:03.240 5 en el St y a ver si aquí al final del
+00:38:08.319 todo aquí está el CDs que igual habrá
+00:38:12.200 dado algún error porque es vale se ha
+00:38:14.640 lanzado pero claro aquí te está diciendo
+00:38:17.760 V con City y CP termin un sucessfully
+00:38:20.839 for a0 rur code Por qué Pues
+00:38:24.000 porque porque Enoc invalid on this
+00:38:27.920 processor Por qué Porque no tenemos un
+00:38:30.119 Support Element De acuerdo luego os
+00:38:32.160 explicaré la parte del Support Element
+00:38:33.640 en el vídeo sin más así que bueno
+00:38:35.480 volvemos a nuestro hcd a nuestro sisun I
+00:38:39.000 odf no era
+00:38:44.960 99w y aquí un punto No una
+00:38:49.200 coma Vale y estamos en opción dos
+00:38:52.599 activate y bueno el resto de opciones
+00:38:55.960 son opciones para el mindframe real es
+00:38:58.880 decir podemos crear el input dataset del
+00:39:01.880 iocp podemos crear eh ver la
+00:39:05.000 configuración activa del mindframe Real
+00:39:07.079 podemos activar o verificar la
+00:39:08.640 configuración de forma dinámica es decir
+00:39:10.920 Yo puedo Añadir o borrar canales de
+00:39:12.960 forma dinámica sin parar el sistema
+00:39:14.440 operativo puedo activar la configuración
+00:39:18.040 por todo el sisp es decir como tenemos
+00:39:20.040 varias cpus definidas pues podemos hacer
+00:39:22.480 que esta configuración se pase a todas
+00:39:24.240 las cpus de forma utilizando los las la
+00:39:27.480 del cplex aquí podemos activar la
+00:39:30.800 configuración de switches si
+00:39:32.200 estuviéramos conectados a switches
+00:39:34.000 podemos incluso guardar la configuración
+00:39:35.760 de los mismos podemos crear eh la
+00:39:38.040 configuración de de io para para su
+00:39:41.280 consulta posterior etcétera es decir
+00:39:44.119 todas estas opciones ya son opciones que
+00:39:46.280 se usan a nivel de máquina real así que
+00:39:48.760 por la parte lógica de mindframe ya
+00:39:50.440 hemos visto el hcd de acuerdo ahora voy
+00:39:53.480 a ir a pie de máquina y os explico un
+00:39:55.280 poco en la opción esta del buil y CDs la
+00:39:57.960 opción dos eligiendo el procesador
+00:40:01.200 podemos elegir los las cuatro entradas
+00:40:04.480 que ahora veremos en la máquina física
+00:40:07.359 donde se definen Cuál es cometido de
+00:40:09.960 cualquiera de ellas y cómo se consultan
+00:40:13.359 los datos internos de cada una de esas
+00:40:15.079 cuatro entradas para que el mindframe
+00:40:17.680 cuando haga el reinicio podamos elegir
+00:40:20.599 una de las entradas y haga lo que se
+00:40:23.240 llama el power on reset es decir la
+00:40:25.760 máquina se resetea y carga la
+00:40:27.839 configuración leyéndola en una de estas
+00:40:30.319 cuatro entradas la que elijamos en este
+00:40:32.280 caso y es la que arranca el sistema con
+00:40:34.200 la nueva
+00:40:36.119 configuración bien para entender el hcd
+00:40:39.480 o el Hardware configuration definition
+00:40:41.720 antes hay que entender muy bien cómo
+00:40:43.520 funciona ese entorno dentro de un
+00:40:45.400 mindframe real en el mindframe en este
+00:40:48.720 caso en el equipo z8 90 que tengo en el
+00:40:52.359 Museo tiene un entorno de configuración
+00:40:55.200 en el Support Element que permite
+00:40:57.599 trasladar la configuración que nosotros
+00:40:59.720 definamos en nuestro hcd nuestro
+00:41:02.079 programa hcd como hemos visto dentro del
+00:41:04.359 sistema zos al entorno físico porque
+00:41:08.000 claro de alguna forma tenemos que pasar
+00:41:10.240 la configuración que hemos hecho
+00:41:11.560 nosotros eh definiendo las unidades de
+00:41:15.000 control e los dispositivos las
+00:41:17.119 direcciones y las consolas de alguna
+00:41:19.319 forma se las tenemos que pasar al
+00:41:20.599 entorno real en el caso de Hércules no
+00:41:23.560 hay ningún problema porque Hércules
+00:41:25.280 emula todo esto pero en el caso de
+00:41:27.280 myframe real hay unas opciones del hcd
+00:41:29.640 que te permiten transferir esa
+00:41:32.400 configuración que hemos definido y
+00:41:34.680 guardarla en el interior de los suport
+00:41:37.280 elements de estos dos equipos que están
+00:41:39.280 aquí redundado entonces dentro del
+00:41:42.520 suport Element hay una cosa que se llama
+00:41:45.079 iocp que significa input output
+00:41:48.200 configuration program o programa de
+00:41:50.520 configuración de entrada y salida
+00:41:52.400 Entonces ese iocp es el que recibe los
+00:41:56.920 datos del hcd y los plasma en el firware
+00:42:00.720 de El Support Element con el fin de que
+00:42:03.280 cuando hagamos un Power on reset en el
+00:42:05.160 mindframe recoja esa configuración nueva
+00:42:07.920 y el sistema detecte o reconozca los
+00:42:10.680 nuevos dispositivos
+00:42:12.520 bien yendo ya a la parte más concreta
+00:42:16.599 del iocp vamos a ir aquí a la parte
+00:42:20.720 de vamos a elegir
+00:42:24.920 aquí y hay una opción que pone input
+00:42:28.160 output configuration
+00:42:30.920 program
+00:42:34.640 veis input output
+00:42:37.960 configuration si hacemos doble clic aquí
+00:42:41.319 nos abre un programa que tiene como
+00:42:44.240 podéis ver cinco entradas la a0 a1 a2 A3
+00:42:49.440 y luego la d0 que es únicamente para
+00:42:52.119 lanzar diagnósticos Estos son cuatro
+00:42:55.440 entradas las que empiezan por a son las
+00:42:58.040 que son editables por el propio hcd
+00:43:00.920 Entonces estos son como cuatro entradas
+00:43:03.800 que nos permiten tener fechas a la hora
+00:43:06.880 de cambiar configuraciones porque por
+00:43:09.520 ejemplo yo he podido cometer un error a
+00:43:11.800 la hora de crear una configuración
+00:43:13.760 Entonces esto lo que nos permite es que
+00:43:16.160 en un momento determinado si yo la he
+00:43:19.240 cagado haciendo una configuración y
+00:43:21.000 sistema no arranca puedo volver al iocp
+00:43:23.720 y arrancar con una configuración
+00:43:25.160 anterior de ahí que tengamos como cuatro
+00:43:27.240 entradas que son cuatro copias de
+00:43:29.200 seguridad no de las configuraciones
+00:43:30.960 anteriores en este caso concreto veis
+00:43:33.480 que hay un nombre que se llama
+00:43:35.720 wayland y luego pues bueno algunas que
+00:43:38.000 están gr protected que están protegidas
+00:43:41.079 contra escritura la que está protegida
+00:43:43.280 por escritura es realmente la que es
+00:43:44.880 operativa el resto se pueden editar y
+00:43:46.960 Bueno aquí veis la última fecha de
+00:43:48.440 edición que yo hice en este mindframe
+00:43:50.480 que fue el 31 de marzo de 2018 que
+00:43:53.960 fijaos casi a las 10 de la noche y es la
+00:43:56.520 la que está ahora mismo activa veis si
+00:43:58.880 yo por ejemplo elijo cualquier otra
+00:44:01.440 entrada Como por ejemplo esta la
+00:44:06.040 A3 yo puedo ir aquí a
+00:44:12.280 opciones y puedo abrir el source file
+00:44:18.040 que esto es lo que genera el hcd a la
+00:44:22.760 hora de Definir la configuración esto
+00:44:26.319 mismo es lo que ha generado el hcd que
+00:44:28.920 lo ha trasladado a esta máquina para ser
+00:44:32.079 reiniciada con esta configuración como
+00:44:34.040 podéis ver aquí están los resource
+00:44:36.119 partitions con la con el coping facility
+00:44:39.000 lpar 1 LP 2 La Z Linux y luego Tenemos
+00:44:42.520 aquí los chapit que son los canales que
+00:44:44.720 son esto que veis aquí estos son los
+00:44:46.960 canales de entrada y salida de de ficon
+00:44:49.960 y escon que están aquí definidos también
+00:44:53.000 de de la misma forma que aquí tenemos
+00:44:54.640 definiciones osd y osc que son son las
+00:44:57.319 osas que son estas tarjetas de de red
+00:45:00.400 que veis aquí entonces todas tienen una
+00:45:02.400 dirección que son la que nosotros
+00:45:04.640 definimos es decir realmente lo único
+00:45:06.880 que tenemos que saber del sistema Es que
+00:45:08.760 la dirección física de los pechi son la
+00:45:13.680 100 por la 40 la 101 que es el chapiz 41
+00:45:18.160 la 110 que es la chapiz 42 y la 111 que
+00:45:21.400 es la chapiz 43 luego la 120 es la el el
+00:45:25.359 chapiz f0 que es la primera de las
+00:45:28.839 eh la primera de las entornos de fibra
+00:45:31.839 que es la FC es fiber Channel es decir
+00:45:34.559 es fibra ficon Entonces digamos que aquí
+00:45:38.040 es donde se hace la
+00:45:39.920 traslación entre el modelo lógico que
+00:45:43.240 definimos nosotros en el hcd y el
+00:45:46.359 entorno físico que tiene el mindframe
+00:45:48.720 Entonces el sistema lo que hace es
+00:45:51.079 cuando yo arranco la máquina lo primero
+00:45:53.119 que hace es un Power on reset leyendo
+00:45:55.520 esta configuración de arriba a abajo
+00:45:57.599 Y entonces es la que Define todos los
+00:45:59.760 chapis que tiene los los canades con las
+00:46:03.640 terminales el ficon en la red las osas
+00:46:07.720 etcétera etcétera etcétera las unidades
+00:46:09.880 de control las io adre que son los
+00:46:13.000 dispositivos de cinta dispositivos de
+00:46:14.800 disco etcétera etcétera entonces esta
+00:46:17.520 digamos es la parte que falta
+00:46:19.079 físicamente en el hcd para que se haga
+00:46:22.800 la traslación o la traducción del las
+00:46:26.280 direcciones que que nosotros hemos
+00:46:27.440 metido dentro del zos y las direcciones
+00:46:30.800 físicas que va a usar el Support Element
+00:46:33.359 cuando este mindframe arranque y de esta
+00:46:35.680 forma la configuración que tenga el hcd
+00:46:38.240 y la configuración que tenga el iocp
+00:46:40.400 coincidirán y por lo tanto el sistema
+00:46:42.240 arrancará sin ningún
+00:46:44.800 problema así que bueno esto ha sido todo
+00:46:47.920 Espero que al menos la duda del hcd Se
+00:46:51.079 os haya disipado un poco aunque ya os
+00:46:52.920 digo que esto es un mundo es decir
+00:46:55.359 estamos entrando en materia avanz
+00:46:57.359 de acuerdo el hcd yo no os recomiendo
+00:47:00.359 que a no ser que sea estrictamente
+00:47:02.160 necesario lo toquéis porque una maniobra
+00:47:05.040 en falso del hcd puede generar Pues que
+00:47:07.760 ya la máquina no os vuelva a arrancar en
+00:47:09.680 la vida sobre todo Si sobreescribir el
+00:47:11.760 dataset de iod f99 que es con el que
+00:47:14.160 arranca ahora mismo toda la
+00:47:15.960 configuración del Hércules con el zos
+00:47:18.640 versión 1 Release 11 de acuerdo esta la
+00:47:21.960 configuración del hcd es necesaria única
+00:47:24.480 y exclusivamente cuando vamos a añadir
+00:47:26.359 dispositiv o borrar dispositivos viejos
+00:47:28.640 porque ya son impresoras fuera de
+00:47:30.040 mantenimiento que ya no se usan o lo que
+00:47:32.400 sea de acuerdo nunca se entra aquí de
+00:47:35.040 forma deliberada para cambiar la
+00:47:36.960 información pero bueno he hecho este
+00:47:38.400 vídeo porque hay gente que me lo ha
+00:47:40.079 pedido y bueno Pues mira pues por lo
+00:47:41.760 menos que sepáis que existe lo que se se
+00:47:44.160 llama el Hardware configuration
+00:47:46.440 defion que sirve para trasladar la
+00:47:50.920 configuración lógica del sistema
+00:47:52.400 operativo zos a la configuración física
+00:47:55.440 de los dispositivos que tiene tiene
+00:47:57.079 conectado su mindframe y que se mantiene
+00:47:59.880 mediante esta aplicación que está eh que
+00:48:02.520 viene en bebida con el sistema operativo
+00:48:04.960 de acuerdo pues nada esto ha sido todo
+00:48:07.720 si os ha gustado el vídeo Dad a me gusta
+00:48:09.800 o visionar los anuncios que aparecen en
+00:48:11.480 el vídeo para apoyarme económicamente
+00:48:13.160 Dad a la campanita para que os avise
+00:48:14.800 Cuando suba nuevos vídeos aunque los que
+00:48:16.079 ya me conocéis sabéis que lo subo todos
+00:48:17.359 los viernes en la medida que puedo
+00:48:19.119 suscribiros Si no lo habéis hecho ya
+00:48:21.319 porque Cuanto más seamos mucho mejor y
+00:48:22.880 además me ayuda a mantener el canal Y si
+00:48:24.920 tenéis alguna duda de la que queréis que
+00:48:26.200 hable el futuro vídeos Y si está dentro
+00:48:27.920 de mis conocimientos dejádmelo en los
+00:48:29.599 comentarios ya veis que os hago caso y
+00:48:31.359 os los contesto todos y sobre todo
+00:48:33.880 Muchísimas gracias por ver el vídeo
+00:48:35.200 hasta el final así que sin más hasta el
+00:48:37.800 próximo vídeo de mindframe corner
+00:48:42.430 [Música]
