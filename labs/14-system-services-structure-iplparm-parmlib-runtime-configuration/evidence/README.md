@@ -1,0 +1,22 @@
+# Evidence - LAB14
+
+This folder contains the original Word source, a contact sheet and the extracted screenshots used in the README.
+
+## Screenshot inventory
+
+```text
+01_d_iplinfo.png
+02_d_symbols.png
+03_d_ios_config.png
+04_d_c_l_console_status.png
+05_d_r_l_no_messages.png
+06_sys1_iplparm_loaddb.png
+07_parmlib_ieasysdb_part_1.png
+08_parmlib_ieasysdb_part_2.png
+09_parmlib_ieasym00.png
+10_parmlib_consol00_part_1.png
+11_parmlib_consol00_part_2.png
+12_parmlib_smfprm00.png
+13_parmlib_mstjcl00.png
+14_parmlib_commnddb.png
+```
