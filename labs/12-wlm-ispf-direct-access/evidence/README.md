@@ -1,0 +1,25 @@
+# Evidence index
+
+- `01-wlm-active-policy.png`
+- `02-xcf-overview.png`
+- `03-wlm-couple-datasets.png`
+- `04-wlm-splash.png`
+- `05-extract-service-definition.png`
+- `06-wlm-definition-menu.png`
+- `07-service-policy-list.png`
+- `08-service-policy-browse.png`
+- `09-isrddn-allocations.png`
+- `10-ispplib-concatenation.png`
+- `11-isrprim-member-search.png`
+- `12-isrprim-panel-source.png`
+- `13-isrprim-primary-menu-source.png`
+- `14-isrprim-init-proc-source.png`
+- `15-isrprim-zsel-before-change.png`
+- `16-ibmprods-wlm-option.png`
+- `17-user-isrprim-menu-edit.png`
+- `18-user-isrprim-zsel-edit.png`
+- `19-user-isrprim-precedence.png`
+- `20-primary-menu-wlm-option.png`
+- `21-troubleshooting-wrong-exec-name.png`
+- `22-ibmprods-correct-iwmarin0.png`
+- `23-wlm-direct-launch-success.png`
