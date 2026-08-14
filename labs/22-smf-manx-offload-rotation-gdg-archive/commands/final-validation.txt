@@ -1,0 +1,94 @@
+LAB 22 - FINAL END-TO-END VALIDATION
+====================================
+
+STATUS
+------
+COMPLETED - END-TO-END VALIDATED
+
+
+OBSERVED ROTATION
+-----------------
+
+Before final offload:
+
+SYS1.MAN1          ACTIVE
+SYS1.MAN3   94%    DUMP REQUIRED
+
+Operator message:
+
+IEE362A SMF ENTER DUMP FOR SYS1.MAN3
+
+SMF switched recording to SYS1.MAN1.
+
+
+OFFLOAD
+-------
+
+Program:
+
+IFASMFDP
+
+Operational member:
+
+IBMUSER.HARDEN.CNTL(SMFGDG)
+
+Input:
+
+SYS1.MAN3
+
+Output:
+
+IBMUSER.SMF.ARCHIVE(+1)
+
+
+FINAL D SMF
+-----------
+
+SYS1.MAN1   27%    ACTIVE
+SYS1.MAN2    0%    ALTERNATE
+SYS1.MAN3    0%    ALTERNATE
+SYS1.MAN4    0%    ALTERNATE
+SYS1.MAN5    0%    ALTERNATE
+SYS1.MAN6    0%    ALTERNATE
+
+
+OPERATOR REQUEST
+----------------
+
+D R,L verified that the previous SMF IEE362A request for
+SYS1.MAN3 was no longer pending.
+
+
+GDG RESULT
+----------
+
+LISTCAT ENT('IBMUSER.SMF.ARCHIVE') ALL
+
+confirmed:
+
+IBMUSER.SMF.ARCHIVE.G0001V00
+
+GDG attributes:
+
+LIMIT(10)
+NOEMPTY
+SCRATCH
+
+
+FINAL RESULT
+------------
+
+MAN3:
+94% DUMP REQUIRED -> 0% ALTERNATE
+
+MAN1:
+ACTIVE and recording normally
+
+IEE362A:
+CLEARED
+
+GDG:
+G0001V00 CREATED AND CATALOGED
+
+END-TO-END VALIDATION:
+PASS
