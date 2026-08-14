@@ -1,0 +1,111 @@
+LAB 22 - SMF MANx OFFLOAD / ROTATION / GDG
+===========================================
+
+SMF STATUS
+----------
+D SMF
+
+PENDING OPERATOR REQUESTS
+-------------------------
+D R,L
+
+GDG VERIFICATION FROM TSO
+-------------------------
+LISTCAT ENT('IBMUSER.SMF.ARCHIVE') ALL
+
+OPERATIONAL PROCEDURE
+---------------------
+
+1. Display SMF status:
+
+   D SMF
+
+2. Identify MAN datasets in:
+
+   DUMP REQUIRED
+
+3. Identify the current:
+
+   ACTIVE
+
+   Never deliberately select the ACTIVE MAN for the offload job.
+
+4. Change the MANX DD in SMFGDG to the MAN requiring processing.
+
+   Example:
+
+   //MANX DD DSN=SYS1.MAN4,DISP=SHR
+
+5. Submit SMFGDG.
+
+6. Review JES/SDSF:
+
+   JESMSGLG
+   JESJCL
+   JESYSMSG
+   SYSPRINT
+
+7. Verify completion code.
+
+   RC=0000 -> successful program completion.
+
+8. Verify SMF state again:
+
+   D SMF
+
+9. The processed MAN should return to:
+
+   ALTERNATE
+
+10. Check pending requests:
+
+    D R,L
+
+11. Verify that the corresponding IEE362A request is gone.
+
+12. Verify GDG generations:
+
+    LISTCAT ENT('IBMUSER.SMF.ARCHIVE') ALL
+
+
+MESSAGES OBSERVED DURING LAB
+============================
+
+IEE362A
+-------
+SMF operator request indicating that a MAN dataset requires dump
+processing.
+
+IEE946I
+-------
+UNEXPECTED END OF TEXT IN SYSIN INPUT
+
+Observed during an IFASMFDP execution that completed with RC=0008.
+The program executed, but its SYSIN control input was not accepted
+as intended.
+
+IEF452I
+-------
+JOB NOT RUN - JCL ERROR
+
+Indicates that JES detected a JCL problem before the application
+program could execute.
+
+IEF644I
+-------
+INVALID NUMERIC IN THE SPACE FIELD
+
+The SPACE parameter was corrected to:
+
+SPACE=(CYL,(10,10),RLSE)
+
+
+RETURN CODE VS JCL ERROR
+========================
+
+RC=0008:
+JCL was accepted and the program executed, but the program reported
+an error.
+
+JCL ERROR:
+JES rejected the JCL and the program did not execute.
