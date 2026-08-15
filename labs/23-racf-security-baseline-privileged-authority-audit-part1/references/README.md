@@ -1,0 +1,8 @@
+# References
+
+- IBM z/OS Security Server RACF documentation
+- IBM RACF DSMON
+- IBM IRRDBU00
+- SYS1.SAMPLIB(IRRICE)
+- IBM RACFICE
+- DFSORT / ICETOOL

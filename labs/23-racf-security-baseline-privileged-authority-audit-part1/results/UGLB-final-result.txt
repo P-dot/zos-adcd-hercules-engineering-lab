@@ -1,0 +1,37 @@
+LAB 23 PART 1
+IBM RACFICE UGLB FINAL RESULT
+
+Execution:
+RC=0000
+
+USER ID      SPECIAL      OPERATIONS      AUDITOR
+-------------------------------------------------
+ADCDMST      YES          YES             NO
+DB8GRFSH     NO           YES             NO
+DB9GENV5     NO           YES             NO
+DB9GRFSH     NO           YES             NO
+IBMUSER      YES          YES             NO
+START1       NO           YES             NO
+SYSOPR       YES          NO              NO
+
+TOTALS
+SPECIAL      : 3
+OPERATIONS   : 6
+AUDITOR      : 0
+
+SPECIAL:
+ADCDMST
+IBMUSER
+SYSOPR
+
+OPERATIONS:
+ADCDMST
+DB8GRFSH
+DB9GENV5
+DB9GRFSH
+IBMUSER
+START1
+
+SPECIAL + OPERATIONS:
+ADCDMST
+IBMUSER

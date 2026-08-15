@@ -1,0 +1,17 @@
+IRRDBU00:
+Initial RC=0016
+Correction: PARM=LOCKINPUT
+Final RC=0000
+
+DFSORT:
+ICE251A - RDW / OUTREC issue with VB records
+ICE218A - short variable records
+Validated concepts: RDW, data starts at position 5, VLSHRT, VTOF
+
+RACFICE BUILD:
+IEFC621I / IEFC605I due to JCL continuation problems
+Final build RC=0000
+
+RACFICE UGLB:
+Symbolic dataset resolution for ADUDATA / DBUDATA / ICECNTL
+Final UGLB RC=0000
