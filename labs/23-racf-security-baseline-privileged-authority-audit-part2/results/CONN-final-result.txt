@@ -1,0 +1,18 @@
+LAB 23 PART 2
+RACFICE CONN FINAL RESULT
+=========================
+
+CONN: User IDs with Group Privileges Above Use
+
+User ID     Group      Authority
+--------------------------------
+IBMUSER     SYSCTLG    JOIN
+IBMUSER     SYS1       JOIN
+IBMUSER     VSAMDSET   JOIN
+
+Summary:
+
+Connections above USE : 3
+Affected user IDs      : 1
+User                   : IBMUSER
+Authority              : JOIN

@@ -1,0 +1,50 @@
+LAB 23 PART 2
+RACF PRIVILEGED ACCESS ANALYSIS
+===============================
+
+RACFICE CONN
+------------
+
+Report requested:
+
+REPORT=CONN
+
+Purpose:
+
+Identify user/group connections with authority above USE.
+
+
+Individual privileged identity validation
+-----------------------------------------
+
+LISTUSER ADCDMST
+LISTUSER DB8GRFSH
+LISTUSER DB9GENV5
+LISTUSER DB9GRFSH
+LISTUSER IBMUSER
+LISTUSER START1
+LISTUSER SYSOPR
+
+
+STARTED task correlation
+------------------------
+
+RLIST STARTED * STDATA
+
+Purpose:
+
+Inspect STARTED class profiles and their:
+
+USER
+GROUP
+TRUSTED
+PRIVILEGED
+TRACE
+
+
+Assessment mode
+---------------
+
+READ ONLY.
+
+No ALTUSER, RALTER, REMOVE or privilege-changing commands were executed.
