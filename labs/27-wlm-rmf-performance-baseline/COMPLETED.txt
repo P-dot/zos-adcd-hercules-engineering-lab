@@ -1,0 +1,9 @@
+Lab 27 completed.
+
+Final status:
+- WLM baseline documented
+- RMF Monitor II baseline captured
+- No WLM tuning change justified
+- Monitor III issue deferred
+- RMF Postprocessor historical run not completed due RMFSORT SORTIN allocation failure
+- Evidence preserved
