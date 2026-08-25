@@ -1,0 +1,27 @@
+# SMP/E dialog/batch flow used in this lab
+
+CSI:
+MVS.GLOBAL.CSI
+
+Target zone:
+MVST
+
+SMP/E control statements:
+SET BOUNDARY(MVST).
+LIST
+     FUNCTIONS
+     FORFMID(HBB7760)
+     SYSMODS
+.
+
+Execution program:
+GIMMSMP
+
+Successful load library used by the generated batch job:
+SYS1.MIGLIB
+
+Validation points:
+- File Allocation Report confirms MVS.GLOBAL.CSI and target zone MVST.
+- SMPLIST contains HBB7760.
+- HBB7760 is reported as TYPE=FUNCTION and DESCRIPTION=BCP Base.
+- The output enumerates the associated SYSMOD relationships.
