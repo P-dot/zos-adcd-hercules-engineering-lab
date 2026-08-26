@@ -1,0 +1,36 @@
+# Lab 30 - JES2/WLM display and controlled troubleshooting commands
+
+# Baseline
+$D JOBCLASS(*)
+$D INIT
+$D JOBDEF
+$D INIT(1)
+$D JOBCLASS(A)
+$D JOBCLASS(A),LONG
+$D INITDEF
+
+# Job diagnosis
+$D J'BATPROC'
+$D J'BATPROC',LONG
+
+# Controlled initiator/class tests
+$T INIT(1),CLASS=A
+$S INIT(1)
+
+# WLM baseline
+D WLM
+
+# JES2 exits investigated and ruled out
+$D EXIT
+$D EXIT(6)
+$D EXIT(52)
+$D EXIT(54)
+$D EXIT(53)
+$D EXIT(50)
+
+# Internal reader baseline
+$D INTRDR
+
+# Controlled correction of the in-flight test job
+# Used only after discovering that the submitted JOB card had CLASS=X.
+$T J'BATPROC',CLASS=A

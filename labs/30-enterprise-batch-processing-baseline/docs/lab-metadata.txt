@@ -1,0 +1,8 @@
+Lab: 30
+Title: Enterprise Batch Processing Baseline
+Platform: z/OS ADCD on Hercules
+Status: PASS
+Final application: COBLAB01
+Final condition code: 0000
+Private PROCLIB: IBMUSER.BATCH.PROCLIB
+Execution class: A
