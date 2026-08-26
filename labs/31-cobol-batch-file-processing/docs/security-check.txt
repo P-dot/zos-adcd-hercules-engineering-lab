@@ -1,0 +1,1 @@
+Publication review: no host IP addresses, MAC addresses or host adapter identifiers are intentionally documented in README/JCL/source/commands. Screenshots are retained from the supplied lab evidence and should be reviewed before public publication.
