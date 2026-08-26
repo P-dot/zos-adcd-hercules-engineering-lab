@@ -1,0 +1,38 @@
+# Lab 33 - install and publish
+# Repository:
+cd /c/Carrera_Ciberseguridad/06_Portfolio_GitHub/zos-adcd-hercules-engineering-lab || exit 1
+
+ZIP="$HOME/Downloads/lab-33-cobol-multirecord-validation-reject-processing.zip"
+TMP="$HOME/Downloads/lab33-tmp"
+LAB="labs/33-cobol-multirecord-validation-reject-processing"
+
+rm -rf "$TMP"
+mkdir -p "$TMP"
+unzip -o "$ZIP" -d "$TMP"
+
+rm -rf "$LAB"
+mkdir -p labs
+cp -r "$TMP/33-cobol-multirecord-validation-reject-processing" "$LAB"
+rm -rf "$TMP"
+
+echo "===== LAB 33 INSTALADO ====="
+find "$LAB" -type f | sort
+
+echo "===== SECURITY CHECK ====="
+grep -RInE \
+'192\.168\.[0-9]{1,3}\.[0-9]{1,3}|10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|172\.(1[6-9]|2[0-9]|3[01])\.[0-9]{1,3}\.[0-9]{1,3}|([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}' \
+"$LAB" || echo "OK - no private IP/MAC patterns found"
+
+echo "===== GIT ====="
+git status --short
+git add "$LAB"
+git commit -m "Add Lab 33 COBOL multi-record validation and reject processing"
+git push origin main
+
+echo "===== VERIFICACION FINAL ====="
+git status
+git log -3 --oneline
+echo "HEAD LOCAL:"
+git rev-parse HEAD
+echo "HEAD REMOTO:"
+git ls-remote origin refs/heads/main

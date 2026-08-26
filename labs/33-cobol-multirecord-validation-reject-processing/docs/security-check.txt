@@ -1,0 +1,5 @@
+Security publication check
+==========================
+Scope: Lab 33 text and screenshot evidence.
+Check before commit/push for common RFC1918 IPv4 and MAC-address patterns.
+Also visually review screenshots for host/network identifiers before publication.
