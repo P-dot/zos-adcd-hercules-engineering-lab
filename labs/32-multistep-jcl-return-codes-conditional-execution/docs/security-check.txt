@@ -1,0 +1,6 @@
+Security publication check
+==========================
+Scope: Lab 32 generated text files and extracted screenshots.
+Check: common RFC1918 IPv4 and MAC-address patterns.
+Expected: no host/network-sensitive identifiers intentionally published.
+Run the supplied Git Bash grep before commit/push.

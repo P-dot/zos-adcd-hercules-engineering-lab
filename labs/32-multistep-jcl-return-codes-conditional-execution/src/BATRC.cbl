@@ -1,0 +1,12 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. BATRC.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-RC             PIC 9(4) COMP VALUE 0.
+
+       PROCEDURE DIVISION.
+           MOVE 0 TO WS-RC
+           MOVE WS-RC TO RETURN-CODE
+           DISPLAY 'BATRC RETURN CODE = 0000'
+           STOP RUN.
