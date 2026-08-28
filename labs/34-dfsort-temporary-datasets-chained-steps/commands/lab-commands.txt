@@ -1,0 +1,20 @@
+cd /c/Carrera_Ciberseguridad/06_Portfolio_GitHub/zos-adcd-hercules-engineering-lab || exit 1
+ZIP="$HOME/Downloads/lab-34-dfsort-temporary-datasets-chained-steps.zip"
+TMP="$HOME/Downloads/lab34-tmp"
+LAB="labs/34-dfsort-temporary-datasets-chained-steps"
+rm -rf "$TMP"; mkdir -p "$TMP"
+unzip -o "$ZIP" -d "$TMP"
+rm -rf "$LAB"; mkdir -p labs
+cp -r "$TMP/34-dfsort-temporary-datasets-chained-steps" "$LAB"
+rm -rf "$TMP"
+find "$LAB" -type f | sort
+echo "===== SECURITY CHECK ====="
+grep -RInE '192\.168\.[0-9]{1,3}\.[0-9]{1,3}|10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|172\.(1[6-9]|2[0-9]|3[01])\.[0-9]{1,3}\.[0-9]{1,3}|([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}' "$LAB" || echo "OK - no private IP/MAC patterns found"
+git add "$LAB"
+git status --short
+git commit -m "Add Lab 34 DFSORT temporary datasets and chained steps"
+git push origin main
+git status
+git log -3 --oneline
+echo "HEAD LOCAL:"; git rev-parse HEAD
+echo "HEAD REMOTO:"; git ls-remote origin refs/heads/main

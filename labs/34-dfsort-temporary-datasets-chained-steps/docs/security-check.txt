@@ -1,0 +1,1 @@
+Before publication, scan for private IPv4/MAC patterns and visually review screenshots for sensitive host/network identifiers.
