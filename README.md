@@ -1,45 +1,222 @@
-# Ingeniería de funcionamiento de z/OS ADCD sobre Hercules
+# IBM z/OS Engineering Laboratory
 
-Este repositorio documenta un laboratorio personal de ingeniería de sistemas mainframe basado en z/OS ADCD 1.11 ejecutado sobre Hercules en Windows.
+Hands-on engineering environment built on **z/OS ADCD 1.11 running under Hercules**, organized as a connected portfolio of system programming, security, batch, storage, networking, UNIX and application laboratories.
 
-El objetivo no es solo operar comandos, sino entender cómo funciona la máquina por dentro: hardware emulado, DASD, IPL, PARMLIB, PROCLIB, APF, LINKLIST, consola, subsistemas y superficies iniciales de auditoría.
+The objective is not to maintain isolated exercises, but to model the platform as an integrated z/OS environment in which subsystems, applications and operational disciplines interact.
 
-## Objetivos del laboratorio
+---
 
-- Entender cómo Hercules presenta hardware emulado a z/OS.
-- Mapear los volúmenes DASD y sus VOLSER.
-- Reconstruir la cadena de arranque z/OS.
-- Identificar qué miembros PARMLIB controlan el sistema.
-- Documentar evidencias con capturas.
-- Preparar una base para auditoría RACF, APF, PROCLIB y datasets críticos.
+## Platform Scope
 
-## Clases documentadas
+```text
+                           z/OS ADCD 1.11
+                                  |
+                               Hercules
+                                  |
+        +-------------------------+-------------------------+
+        |                         |                         |
+     SYSTEM                    SECURITY                 APPLICATIONS
+        |                         |                         |
+   Core z/OS                  RACF / SAF                 COBOL
+   JES2 / SDSF                SMF / Audit                CICS
+   DFSMS / DASD               Hardening                  Db2
+   WLM / RMF                                             REXX
+   SMP/E                                                 PL/I
+   XCF / GRS
+        |
+        +-------------------------+
+                                  |
+                             BATCH ENGINE
+                                  |
+                   JCL / DFSORT / COBOL
+                                  |
+                    Temporary datasets / RC
+                                  |
+                      GDG / Restart / Recovery
+                                  |
+                  +---------------+---------------+
+                  |                               |
+                 USS                       Communications
+          OMVS / zFS / POSIX            TCP/IP / VTAM
+                                        TN3270 / Policy
+```
 
-| Clase | Tema | Resultado |
+---
+
+## Engineering Domains
+
+| Domain | Repository | Focus |
 |---|---|---|
-| Clase 1 | Operación básica y SDSF | Lectura de procesos, SYSLOG y LOGREC |
-| Clase 2 | Radiografía de la máquina | Hardware emulado, CCKD, shadow files y fallo 0A85 |
-| Clase 3 | Mapa DASD / VOLSER | Corrección de 0A85 y clasificación de volúmenes |
-| Clase 4 | Cadena de arranque z/OS | IPL, IEASYSDB, PARMLIB, PROGDB, BPXPRMDB, IEFSSNDB |
+| Core z/OS / System Programming | [zos-adcd-hercules-engineering-lab](https://github.com/P-dot/zos-adcd-hercules-engineering-lab) | IPL, PARMLIB, PROCLIB, JES2, SDSF, DFSMS, WLM, SMF, SMP/E, XCF/GRS |
+| RACF / SAF Security | [mainframe-racf-security-evidence](https://github.com/P-dot/mainframe-racf-security-evidence) | Identity, authorization, audit, OPERCMDS, FACILITY, hardening |
+| JCL / JES2 / Batch | [JCL_LABS](https://github.com/P-dot/JCL_LABS) | JOB/EXEC/DD, procedures, symbols, dataset processing |
+| COBOL | [COBOL](https://github.com/P-dot/COBOL) | Compile/link, runtime, file processing, batch applications |
+| Communications Server | [zos-communications-server-network-lab](https://github.com/P-dot/zos-communications-server-network-lab) | TCP/IP, VTAM, TN3270, network services, security and diagnostics |
+| UNIX System Services | [UNIX_System_Services-](https://github.com/P-dot/UNIX_System_Services-) | OMVS, shell, zFS, POSIX, MVS/USS integration |
+| CICS | [CICS](https://github.com/P-dot/CICS) | Transaction processing, runtime and diagnostics |
+| Db2 for z/OS | [DB2-](https://github.com/P-dot/DB2-) | SQL, SPUFI, DDL/DML and application integration |
+| VSAM | [vsam01](https://github.com/P-dot/vsam01) | VSAM datasets and access methods |
+| REXX | [Rexx](https://github.com/P-dot/Rexx) | TSO/E automation |
+| PL/I | [PL-I](https://github.com/P-dot/PL-I) | PL/I application development |
+| Integrated application lab | [mainframe-cobol-db2-cics-devops-lab](https://github.com/P-dot/mainframe-cobol-db2-cics-devops-lab) | Cross-component application and DevOps integration |
 
-## Entorno
+---
 
-- Host: Windows
-- Emulador: Hercules
-- Sistema: IBM ADCD z/OS 1.11
-- Consola principal: L700 / 3270
-- Herramientas: SDSF, ISPF, PARMLIB, dasdls, PowerShell, Git
+## Current Batch Architecture
 
-## Aviso
+The batch track is being developed as a progressive system, not as isolated JCL examples.
 
-Este repositorio documenta un laboratorio propio con fines educativos, defensivos y de ingeniería de sistemas. No contiene discos DASD, binarios de z/OS, contraseñas ni material propietario redistribuible.
+```text
+JCL fundamentals
+      |
+Procedures / Symbols
+      |
+Sequential datasets
+      |
+COBOL compile / link
+      |
+COBOL batch I/O
+      |
+Multi-step jobs
+      |
+RETURN-CODE / conditional execution
+      |
+Multi-record processing
+      |
+VALID / REJECT routing
+      |
+DFSORT
+      |
+&&TEMP / PASS / DELETE
+      |
+Chained DFSORT -> COBOL processing
+      |
+GDG
+      |
+Restart / Recovery
+      |
+SMF / RACF / WLM / Db2 integration
+```
 
-## Nuevos laboratorios
+### Recent integrated batch labs
 
-| Lab | Tema | Resultado |
-|---|---|---|
-| Lab 04 | Ingeniería DASD ZVOL00/ZVOL01 | Creación e inicialización de volúmenes 3390 de laboratorio |
-| Lab 05 | DB2 + CICS DB2CONN | CICS CICSA conectado a DB2 DB9G mediante DB2CONN persistente |
+- **Lab 31** — COBOL batch file processing
+- **Lab 32** — Multi-step control and return-code driven flow
+- **Lab 33** — Multi-record validation, counters, VALID/REJECT and RC 0/4/8
+- **Lab 34** — DFSORT, temporary datasets and chained steps
+- **Next** — GDG, restart/rerun, recovery and enterprise jobstream integration
 
-- [Lab 04 - ZVOL DASD Engineering](labs/04-zvol-dasd-engineering)
-- [Lab 05 - DB2 + CICS DB2CONN Integration](labs/05-db2-cics-db2conn-integration)
+---
+
+## Cross-Subsystem Integration
+
+The long-term architecture connects system components instead of keeping them isolated.
+
+```text
+                            JES2
+                              |
+                              v
+                             JCL
+                              |
+          +-------------------+-------------------+
+          |                                       |
+       DFSORT                                  BPXBATCH
+          |                                       |
+          v                                       v
+       &&TEMP                                   USS
+          |                                  OMVS / zFS
+          v
+        COBOL
+       /     \
+      v       v
+   VALID    REJECT
+      |
+      v
+     GDG
+      |
+      v
+     Db2
+      |
+      v
+ RC / Recovery
+      |
+ +----+----+
+ |         |
+RACF      SMF
+ |         |
+ +----+----+
+      |
+     WLM
+```
+
+---
+
+## Engineering Method
+
+Every lab follows the same operational cycle:
+
+```text
+Understand
+    |
+Configure
+    |
+Execute
+    |
+Observe
+    |
+Diagnose
+    |
+Correct
+    |
+Validate
+    |
+Document
+    |
+Integrate
+```
+
+Evidence is collected from the actual z/OS environment using combinations of:
+
+- ISPF
+- SDSF
+- JES2 output
+- system console
+- RACF messages
+- SMF data
+- dataset contents
+- application output
+- subsystem diagnostics
+
+---
+
+## Repository Navigation
+
+Detailed repository relationships:
+
+- [Repository map](docs/REPOSITORIES.md)
+- [Ecosystem architecture](docs/ECOSYSTEM.md)
+
+---
+
+## Portfolio Goal
+
+The purpose of this environment is to progressively reproduce, document and connect the engineering workflows found in a real z/OS installation within the practical limits of an ADCD/Hercules laboratory.
+
+The portfolio therefore focuses on:
+
+- system programming
+- batch operations
+- storage
+- security
+- observability
+- networking
+- UNIX System Services
+- transaction processing
+- database integration
+- mainframe application development
+
+---
+
+## Disclaimer
+
+This is a personal laboratory environment for technical learning and engineering practice. It does not represent a production IBM Z installation and is intentionally documented with publication-safe evidence.
