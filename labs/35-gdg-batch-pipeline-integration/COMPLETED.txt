@@ -1,0 +1,13 @@
+LAB 35 - GDG INTEGRATION IN THE BATCH PIPELINE
+STATUS: COMPLETED AND VALIDATED
+
+Validated outcomes:
+- GDG base created with IDCAMS: RC=0000
+- Catalog baseline verified: RC=0000
+- DFSORT: 4 input / 4 output, RC=0000
+- BATMR: 3 valid / 1 reject, functional RC=0004
+- RC-aware publication condition evaluated as intended
+- IEBGENER publication: RC=0000
+- First generation cataloged: IBMUSER.BATCH35.VALID.GDG.G0001V00
+- Published generation contains exactly the 3 valid records
+- No additional GDG generations created; that scope remains in JCL_LABS
