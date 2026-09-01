@@ -1,0 +1,9 @@
+LAB 36 — PART 1
+STATUS: COMPLETED AND VALIDATED
+
+B36BASE normal: STEP01/02/03 RC=0000.
+B36BASE RESTART=STEP02: STEP01 omitted; STEP02/03 RC=0000.
+B36TEMP normal: &&RECOVER PASSED, consumed, then DELETED; expected record verified in SYSOUT.
+B36TEMP RESTART=STEP02: IEF212I DATA SET NOT FOUND; STEP02 NOT EXECUTED.
+
+Part 2: persistent checkpoint, lifecycle, rerun safety and idempotency — deferred.
