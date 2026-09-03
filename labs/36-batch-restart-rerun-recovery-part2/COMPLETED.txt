@@ -1,0 +1,8 @@
+LAB 36 — PART 2 COMPLETED
+Persistent Checkpoint, Restartability, Rerun and Idempotency
+
+Final validated state:
+- IBMUSER.BATCH36.CHKPT: preserved
+- IBMUSER.BATCH36.OUTPUT: preserved
+
+Do not delete these datasets solely for repository publication.

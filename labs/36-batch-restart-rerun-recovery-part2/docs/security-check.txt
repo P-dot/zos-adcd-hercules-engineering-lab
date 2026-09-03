@@ -1,0 +1,2 @@
+Text security scan: OK - no private IPv4/MAC patterns found.
+Evidence screenshots were retained from the supplied lab capture; no network configuration screens are part of this lab.
