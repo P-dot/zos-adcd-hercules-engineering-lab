@@ -1,0 +1,135 @@
+LAB 38 - COMMANDS AND OPERATOR ACTIONS
+======================================
+
+1. SMF BASELINE
+---------------
+D SMF
+
+Purpose:
+Confirm the active/alternate SMF MAN data sets before LOGREC maintenance.
+
+2. DYNAMIC EXIT INFRASTRUCTURE BASELINE
+---------------------------------------
+D PROG,EXIT
+
+Purpose:
+Display the Dynamic Exits Facility inventory. This proves that dynamic exit
+infrastructure is active; it does not by itself prove that each SMF IEFUxx
+exit is dynamically registered.
+
+3. LOGREC IDENTIFICATION
+------------------------
+ISPF 3.4 data set search:
+SYS1.LOGREC
+
+SDSF SYSLOG searches:
+IFB081I
+LOGREC
+
+TSO command:
+LISTCAT ENT('SYS1.LOGREC') ALL
+
+Purpose:
+Identify the LOGREC data set used by the system and record its catalog and
+physical allocation information before maintenance.
+
+Observed target:
+SYS1.LOGREC
+Volume: SBSYS1
+Device: 3390
+DSORG: PSU
+RECFM: U
+BLKSIZE: 1944
+Allocated cylinders: 6
+
+4. PRE-MAINTENANCE SYSTEM CHECK
+-------------------------------
+D A,L
+
+Purpose:
+Capture the active system/subsystem state before maintenance.
+
+5. INVESTIGATION OF THE INITIAL JCL FAILURE
+-------------------------------------------
+Initial JES diagnostic retained as evidence:
+IEFC001I LOGR38 CLEAR SERERDS - UNIT FIELD SPECIFIES INCORRECT DEVICE NAME
+IEF272I LOGR38 CLEAR - STEP WAS NOT EXECUTED
+
+No IFCDIP00 maintenance occurred during this failed submission.
+
+6. z/OS 1.11 IBM SAMPLE VALIDATION
+----------------------------------
+ISPF data set/member work:
+SYS1.SAMPLIB
+
+Search terms used:
+IFCDIP00
+IFCEREP1
+SERERDS
+
+Members located and reviewed:
+SYS1.SAMPLIB(IFCDIPS1)
+SYS1.SAMPLIB(IFCDIPS2)
+
+Key IBM-supplied pattern established:
+EXEC PGM=IFCDIP00
+SYSPRINT DD SYSOUT=*
+SYSABEND DD SYSOUT=*
+SERERDS DD DSN=<LOGREC>,DISP=SHR
+
+7. CONTROLLED LOGREC MAINTENANCE
+--------------------------------
+Submit member:
+IBMUSER.HARDEN.CNTL(LOGR38)
+
+Final JCL is stored in:
+jcl/LOGR38.jcl
+
+Expected/observed successful evidence:
+IFCDIP00 executed.
+IFC001I ... DIP COMPLETE
+Condition code 0000 / RC=0000.
+
+8. POST-MAINTENANCE VALIDATION
+------------------------------
+D A,L
+D SMF
+
+SDSF SYSLOG searches:
+IFB086I
+LOGREC
+
+Purpose:
+Confirm core address spaces remain active, SMF remains healthy, and
+SYS1.LOGREC remains the system LOGREC data set after reinitialization.
+
+9. EFFECTIVE SMF OPTIONS
+------------------------
+D SMF,O
+
+Purpose:
+Display effective SMF parameters and correlate them with PARMLIB.
+
+PARMLIB member reviewed read-only:
+ADCD.Z111S.PARMLIB(SMFPRM00)
+
+Relevant configuration observed includes SYS(EXITS(...)) and
+SUBSYS(STC,EXITS(...)) entries such as IEFU83 and IEFU84.
+
+10. TARGETED DYNAMIC EXIT CHECKS
+--------------------------------
+D PROG,EXIT,EXITNAME=IEFU83
+D PROG,EXIT,EXITNAME=IEFU84
+
+Purpose:
+Test whether selected SMF-configured IEFUxx exits are also represented as
+Dynamic Exits Facility registrations. The lab deliberately makes no SETPROG
+change and does not force dynamic registration.
+
+11. CHANGE CONTROL / COMMANDS NOT USED
+--------------------------------------
+No SET SMF=xx was issued in this lab.
+No SETPROG EXIT modification was issued.
+No SYS1.LOGREC delete/reallocate operation was performed.
+No direct edit of SYS1.LOGREC was performed.
+SMFPRM00 was inspected read-only.
