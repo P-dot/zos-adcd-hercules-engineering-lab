@@ -39,7 +39,7 @@ manual ISPF task
 
 Repositories:
 
-- zos-bacth-scheduler
+- zos-batch-scheduler
 - JCL_LABS
 - zos-adcd-hercules-engineering-lab
 
@@ -59,7 +59,7 @@ This should be the first major scheduler integration track.
 
 Repositories:
 
-- zos-bacth-scheduler
+- zos-batch-scheduler
 - JCL_LABS
 - COBOL
 - vsam01
@@ -89,7 +89,7 @@ RACF
 
 Repositories:
 
-- zos-bacth-scheduler
+- zos-batch-scheduler
 - JCL_LABS
 - COBOL
 - DB2-
@@ -193,7 +193,7 @@ DASD volume
 
 Repositories:
 
-- zos-bacth-scheduler
+- zos-batch-scheduler
 - JCL_LABS
 - zos-adcd-hercules-engineering-lab
 
