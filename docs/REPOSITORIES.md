@@ -18,7 +18,7 @@ The canonical architecture is documented in:
 | `mainframe-racf-security-evidence` | RACF / SAF security, authorization, audit and hardening |
 | `zos-communications-server-network-lab` | Communications Server, TCP/IP, VTAM, TN3270 and network diagnostics |
 | `UNIX_System_Services-` | USS / OMVS / POSIX / zFS and MVS-to-USS integration |
-| `zos-bacth-scheduler` | Educational native batch scheduler and production-control layer above JES2 |
+| `zos-batch-scheduler` | Educational native batch scheduler and production-control layer above JES2 |
 | `JCL_LABS` | JCL, JES2 and batch-processing fundamentals |
 | `COBOL` | COBOL development, compile/link and batch processing |
 | `vsam01` | VSAM data organization and access methods |

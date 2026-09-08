@@ -54,7 +54,7 @@ The objective is not to maintain isolated exercises, but to model the platform a
 | RACF / SAF Security | [mainframe-racf-security-evidence](https://github.com/P-dot/mainframe-racf-security-evidence) | Identity, authorization, audit, OPERCMDS, FACILITY, hardening |
 | Communications Server | [zos-communications-server-network-lab](https://github.com/P-dot/zos-communications-server-network-lab) | TCP/IP, VTAM, TN3270, network services, security and diagnostics |
 | UNIX System Services | [UNIX_System_Services-](https://github.com/P-dot/UNIX_System_Services-) | OMVS, shell, zFS, POSIX, MVS/USS integration |
-| Batch Scheduler | [zos-bacth-scheduler](https://github.com/P-dot/zos-bacth-scheduler) | Native educational scheduler layer above JES2: ordering, state, dependencies, execution tracking and recovery |
+| Batch Scheduler | [zos-batch-scheduler](https://github.com/P-dot/zos-batch-scheduler) | Native educational scheduler layer above JES2: ordering, state, dependencies, execution tracking and recovery |
 | JCL / JES2 / Batch | [JCL_LABS](https://github.com/P-dot/JCL_LABS) | JOB/EXEC/DD, procedures, symbols, dataset processing |
 | COBOL | [COBOL](https://github.com/P-dot/COBOL) | Compile/link, runtime, file processing and batch applications |
 | VSAM | [vsam01](https://github.com/P-dot/vsam01) | VSAM datasets and access methods |

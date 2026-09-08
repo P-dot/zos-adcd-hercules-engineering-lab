@@ -195,9 +195,8 @@ JCL describes what JES2 must execute.
 
 ### zos-batch-scheduler
 
-Current repository: `https://github.com/P-dot/zos-bacth-scheduler`
+Current repository: `https://github.com/P-dot/zos-batch-scheduler`
 
-Recommended canonical name: `https://github.com/P-dot/zos-batch-scheduler`
 
 Role:
 
