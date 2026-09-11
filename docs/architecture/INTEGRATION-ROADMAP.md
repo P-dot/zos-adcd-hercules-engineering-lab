@@ -70,13 +70,55 @@ Branch:
 integration/racf-network-smf
 ```
 
+RACF prerequisite status:
+
 ```text
-RACF authorization
-→ TCP/IP service
-→ controlled access test
-→ allow/deny behavior
-→ SMF/audit evidence
+Communications Server Lab 09
+certificate / key-ring inventory
+        ↓
+RACF Lab 31
+cryptographic authorization baseline
+        ↓
+RACF Lab 32
+controlled RACDCERT delegation
+        ↓
+RACF Lab 33
+LAB33CERT + LAB33RING
+        ↓
+RACF-side handoff ready
 ```
+
+The cryptographic identity and authorization side is validated. The retained Lab 33 objects are a prerequisite for integration, not evidence that AT-TLS is already active.
+
+Next integration sequence:
+
+```text
+LAB33CERT + LAB33RING
+        ↓
+review target TCP/IP service identity and SAF requirements
+        ↓
+prepare Policy Agent / PAGENT policy
+        ↓
+define and validate TTLSRule
+        ↓
+enable AT-TLS only after policy is ready
+        ↓
+controlled TLS connection
+        ↓
+validate encrypted service behavior
+        ↓
+collect SMF / audit / observability evidence
+```
+
+Required completion criteria:
+
+- a specific non-production TCP/IP service is selected;
+- RACF ownership and access to the retained key ring are validated for the consuming service identity;
+- Policy Agent starts with the intended policy without introducing an uncontrolled service outage;
+- the TTLSRule matches only the intended test traffic;
+- a controlled TLS connection succeeds;
+- rollback to the previous TCP/IP state is documented and validated;
+- available SMF or equivalent observability evidence is captured without claiming unsupported zERT capability.
 
 ## Priority 6 — USS + RACF + TCP/IP
 

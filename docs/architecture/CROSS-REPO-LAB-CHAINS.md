@@ -134,7 +134,7 @@ TN3270
 → response
 ```
 
-## Track G — Secure Network Service
+## Track G — Secure Network Service / RACF-to-AT-TLS Handoff
 
 Repositories:
 
@@ -142,14 +142,53 @@ Repositories:
 - zos-communications-server-network-lab
 - zos-adcd-hercules-engineering-lab
 
+Validated prerequisite chain:
+
 ```text
-RACF / SAF
-→ TCP/IP configuration
-→ network service
-→ controlled connection attempt
-→ allow / deny
-→ SMF / evidence
+Communications Server Lab 09
+certificate / key-ring inventory
+        ↓
+RACF Lab 31
+cryptographic authorization baseline
+        ↓
+RACF Lab 32
+controlled RACDCERT delegation
+        ↓
+RACF Lab 33
+LAB33CERT + LAB33RING
 ```
+
+Lab 33 leaves a controlled RACF-side cryptographic handoff state: the synthetic certificate, RACF-managed private key, dedicated key ring and certificate-to-ring association are retained, while temporary administrative delegation is removed.
+
+Planned network integration:
+
+```text
+LAB33CERT + LAB33RING
+        ↓
+Communications Server
+Policy Agent / PAGENT
+        ↓
+TTLSRule
+        ↓
+AT-TLS-enabled service
+        ↓
+controlled TLS connection
+        ↓
+TLS validation
+        ↓
+SMF / observability
+```
+
+Current boundary:
+
+```text
+RACF cryptographic identity     VALIDATED
+Network consumption by AT-TLS  PLANNED
+End-to-end TLS validation       PLANNED
+SMF correlation                 PLANNED
+```
+
+The track must not present AT-TLS as active until the Communications Server policy, service binding and controlled connection test have been validated.
 
 ## Track H — Secure USS Service
 
