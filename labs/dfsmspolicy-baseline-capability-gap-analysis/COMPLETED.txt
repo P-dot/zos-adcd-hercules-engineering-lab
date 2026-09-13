@@ -1,0 +1,16 @@
+DFSMS Policy Engineering — Baseline and Capability Gap Analysis
+STATUS: COMPLETED
+
+Validated baseline:
+- SYS1.SCDS / SYS1.ACDS / SYS1.COMMDS
+- DBCLASS / HFSCLASS / SMSPOOL
+- SMSPOOL -> SMS000, SMS001, SMS002
+- ACSSTOR and ACSGRP correlated with prior Lab 17
+
+Gap selected for next work:
+- Data Class ACS
+- Management Class ACS
+- HFS/zFS-aware routing
+
+Method improvement:
+- search and reuse portfolio evidence before rediscovering existing implementation.
