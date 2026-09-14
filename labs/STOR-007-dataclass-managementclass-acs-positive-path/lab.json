@@ -1,0 +1,20 @@
+{
+  "lab_id": "STOR-007",
+  "title": "DFSMS Data/Management Class Foundation and Data Class ACS Positive-Path Validation",
+  "domain": "Storage & DFSMS Engineering",
+  "target_repository": "zos-storage-dfsms-engineering",
+  "status": "completed-pre-activation",
+  "platform": "IBM z/OS ADCD 1.11 under Hercules",
+  "scds": "SYS1.SCDS",
+  "acs_source_library": "IBMUSER.HARDEN.CNTL",
+  "acs_source_member": "ACSDATA",
+  "test_member": "DCTEST1",
+  "result": {
+    "translation_rc": "0000",
+    "validation": "SUCCESSFUL",
+    "test_exit_code": "0",
+    "acs_testing_rc": "00",
+    "dataclass": "SMSDATA"
+  },
+  "activation_performed": false
+}
