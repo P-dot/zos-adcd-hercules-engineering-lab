@@ -1,0 +1,241 @@
+name: zOS Lab Quality Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "docs/**"
+      - "lab/**"
+      - "integration/**"
+      - "fix/**"
+
+permissions:
+  contents: read
+
+jobs:
+  quality-gate:
+    name: zOS Lab Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine validation range
+        id: range
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          elif git rev-parse HEAD^ >/dev/null 2>&1; then
+            echo "base=HEAD^" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=$(git hash-object -t tree /dev/null)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Whitespace validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check "${{ steps.range.outputs.base }}" HEAD
+
+      - name: Validate YAML and JSON syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import pathlib
+          import subprocess
+          import sys
+
+          base = "${{ steps.range.outputs.base }}"
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "--diff-filter=ACMR", base, "HEAD"],
+              text=True,
+          ).splitlines()
+
+          failures = []
+
+          try:
+              import yaml
+          except ImportError:
+              yaml = None
+
+          for name in changed:
+              path = pathlib.Path(name)
+              if not path.is_file():
+                  continue
+              suffix = path.suffix.lower()
+              try:
+                  if suffix == ".json":
+                      json.loads(path.read_text(encoding="utf-8"))
+                  elif suffix in {".yml", ".yaml"}:
+                      if yaml is None:
+                          # GitHub workflow files are checked separately below.
+                          continue
+                      yaml.safe_load(path.read_text(encoding="utf-8"))
+              except Exception as exc:
+                  failures.append(f"{name}: {exc}")
+
+          if failures:
+              print("Syntax validation failed:")
+              print("\n".join(failures))
+              sys.exit(1)
+
+          print("Changed JSON/YAML syntax check passed.")
+          PY
+
+      - name: Validate GitHub workflow YAML with Ruby
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruby -e '
+            require "yaml"
+            Dir[".github/workflows/*.{yml,yaml}"].each do |f|
+              YAML.load_file(f)
+              puts "YAML OK: #{f}"
+            end
+          '
+
+      - name: Publication safety scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import pathlib
+          import re
+          import subprocess
+          import sys
+
+          base = "${{ steps.range.outputs.base }}"
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "--diff-filter=ACMR", base, "HEAD"],
+              text=True,
+          ).splitlines()
+
+          text_suffixes = {
+              ".md", ".txt", ".jcl", ".rexx", ".rex", ".sh", ".bash",
+              ".yml", ".yaml", ".json", ".xml", ".properties", ".conf",
+              ".cfg", ".ini", ".acs", ".cbl", ".cob", ".pli", ".asm"
+          }
+
+          hard_fail_patterns = [
+              ("private key material",
+               re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----")),
+              ("GitHub token",
+               re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{20,}\b")),
+              ("GitHub fine-grained token",
+               re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b")),
+              ("AWS access key",
+               re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
+              ("MAC address",
+               re.compile(r"(?i)\b(?:[0-9a-f]{2}[:-]){5}[0-9a-f]{2}\b")),
+              ("Windows user path",
+               re.compile(r"(?i)\b[A-Z]:[\\/]+Users[\\/]+[^\\/\s]+")),
+              ("Unix home path",
+               re.compile(r"/(?:home|Users)/[^/\s]+")),
+              ("Git Bash host prompt",
+               re.compile(r"\bMINGW(?:32|64)\b")),
+              ("Windows host identifier",
+               re.compile(r"\bDESKTOP-[A-Z0-9-]+\b", re.I)),
+          ]
+
+          # Generic words such as "password", "token", "secret", and IPv4
+          # addresses are intentionally not hard failures because engineering
+          # standards may discuss them legitimately. They remain manual review
+          # items in the PR publication-security gate.
+
+          findings = []
+
+          for name in changed:
+              path = pathlib.Path(name)
+              if not path.is_file() or path.suffix.lower() not in text_suffixes:
+                  continue
+              try:
+                  text = path.read_text(encoding="utf-8", errors="replace")
+              except OSError:
+                  continue
+
+              for line_no, line in enumerate(text.splitlines(), 1):
+                  for label, pattern in hard_fail_patterns:
+                      if pattern.search(line):
+                          findings.append(f"{name}:{line_no}: {label}")
+
+          if findings:
+              print("Publication safety gate failed.")
+              print("Review and sanitize these findings:")
+              for finding in findings:
+                  print(f"  - {finding}")
+              sys.exit(1)
+
+          print("Publication safety scan passed.")
+          PY
+
+      - name: Validate structured lab metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import pathlib
+          import subprocess
+          import sys
+
+          base = "${{ steps.range.outputs.base }}"
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "--diff-filter=ACMR", base, "HEAD"],
+              text=True,
+          ).splitlines()
+
+          lab_roots = set()
+          for name in changed:
+              parts = pathlib.PurePosixPath(name).parts
+              if len(parts) >= 2 and parts[0] == "labs":
+                  lab_roots.add(pathlib.Path(parts[0]) / parts[1])
+
+          failures = []
+
+          for root in sorted(lab_roots):
+              if not root.is_dir():
+                  continue
+
+              readme = root / "README.md"
+              if not readme.is_file():
+                  failures.append(f"{root}: missing README.md")
+
+              manifest = root / "lab.json"
+              if manifest.is_file():
+                  try:
+                      data = json.loads(manifest.read_text(encoding="utf-8"))
+                  except Exception as exc:
+                      failures.append(f"{manifest}: invalid JSON: {exc}")
+                      continue
+
+                  # v1 deliberately validates only stable structural fields.
+                  # Architecture-V2 metadata will be introduced progressively
+                  # rather than retroactively breaking historical labs.
+                  if not isinstance(data, dict):
+                      failures.append(f"{manifest}: top-level JSON must be an object")
+
+          if failures:
+              print("Structured lab validation failed:")
+              for failure in failures:
+                  print(f"  - {failure}")
+              sys.exit(1)
+
+          if lab_roots:
+              print(f"Structured lab check passed for {len(lab_roots)} changed lab(s).")
+          else:
+              print("No changed lab directories require structural validation.")
+          PY
+
+      - name: Quality gate summary
+        shell: bash
+        run: |
+          echo "z/OS Lab Quality Gate passed."
+          echo "Automated checks complement, but do not replace, z/OS engineering validation."
