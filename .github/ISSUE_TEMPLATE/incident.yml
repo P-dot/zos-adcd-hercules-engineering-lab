@@ -1,0 +1,90 @@
+name: z/OS Incident / Unexpected Deviation
+description: Record an unexpected failure, regression, or deviation requiring diagnosis and recovery.
+title: "[INC] "
+labels: ["incident"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Preserve unexpected failures as engineering evidence. Do not rewrite history to make the first execution appear successful.
+
+  - type: input
+    id: related
+    attributes:
+      label: Related change / lab
+      placeholder: "CHG-YYYYMMDD-NN or repository lab path"
+    validations:
+      required: true
+
+  - type: input
+    id: domain
+    attributes:
+      label: Affected domain / capability
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Observed symptom
+      description: What happened, and how did it differ from the expected state?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Initial evidence
+      description: Relevant messages, RC/ABEND, SYSLOG, SDSF/JES, SMF, LOGREC, Health Checker, RMF, or component evidence.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact and containment
+      description: Affected components/state and immediate actions taken to prevent further impact.
+    validations:
+      required: true
+
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Expected baseline
+      description: What Known Good state should the system be in?
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnosis
+    attributes:
+      label: Diagnostic hypothesis / next diagnostic action
+      description: Separate observed facts from hypotheses.
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Recovery status
+      description: Recovery/rollback action, current result, and how restoration will be validated.
+    validations:
+      required: true
+
+  - type: textarea
+    id: prevention
+    attributes:
+      label: Problem review / recurrence prevention
+      description: Complete after diagnosis. What should change in baseline, procedure, automation, or documentation?
+
+  - type: checkboxes
+    id: publication
+    attributes:
+      label: Evidence handling
+      options:
+        - label: Sensitive credentials/secrets are excluded.
+          required: true
+        - label: Host/network/session metadata is sanitized before public publication.
+          required: true
+        - label: Failed attempts and material troubleshooting will be preserved in the engineering record.
+          required: true
