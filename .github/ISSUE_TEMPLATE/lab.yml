@@ -1,0 +1,99 @@
+name: Engineering Lab Proposal
+description: Propose a new lab from an identified capability, lifecycle, maturity, or integration gap.
+title: "[LAB] "
+labels: ["lab"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A new lab must be justified by the Engineering Control Plane. Do not create a lab only because it is the next number.
+
+  - type: input
+    id: domain
+    attributes:
+      label: Engineering domain
+      placeholder: "Storage & DFSMS Engineering"
+    validations:
+      required: true
+
+  - type: input
+    id: capability
+    attributes:
+      label: Target capability
+      placeholder: "Data Class ACS negative-path validation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: gap
+    attributes:
+      label: Capability gap
+      description: What is currently unproven or incomplete?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Existing evidence and lineage
+      description: Reference existing labs/repositories that must be reused rather than duplicated.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: lifecycle
+    attributes:
+      label: Primary lifecycle stage
+      options:
+        - Discover
+        - Baseline
+        - Configure
+        - Operate
+        - Observe
+        - Diagnose
+        - Recover
+        - Improve
+        - Automate
+        - Integrate
+    validations:
+      required: true
+
+  - type: dropdown
+    id: integration
+    attributes:
+      label: Target integration level
+      options:
+        - I0 - Standalone
+        - I1 - Cross-component
+        - I2 - Cross-repository
+        - I3 - Production-like
+    validations:
+      required: true
+
+  - type: textarea
+    id: success
+    attributes:
+      label: Acceptance criteria
+      description: What evidence will prove the capability?
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Recovery / rollback expectation
+      description: State what must be reversible or why recovery is not applicable.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: controls
+    attributes:
+      label: Planning controls
+      options:
+        - label: I checked the Capability Matrix before proposing this lab.
+          required: true
+        - label: Existing validated work will be referenced rather than recreated.
+          required: true
+        - label: Publication-sensitive host/network/credential data will not be committed.
+          required: true

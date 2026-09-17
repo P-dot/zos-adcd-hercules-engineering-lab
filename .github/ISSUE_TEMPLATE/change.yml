@@ -1,0 +1,110 @@
+name: z/OS Change
+description: Plan a controlled modification to the accepted z/OS laboratory state.
+title: "[CHG] "
+labels: ["change"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for planned state-changing work. Class 2/3 changes require Baseline-A, validation, observability, and a known recovery posture.
+
+  - type: input
+    id: change_id
+    attributes:
+      label: Change ID
+      placeholder: "CHG-YYYYMMDD-NN"
+    validations:
+      required: true
+
+  - type: input
+    id: domain
+    attributes:
+      label: Domain and capability
+      placeholder: "Storage & DFSMS Engineering — Data Class ACS"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: class
+    attributes:
+      label: Change class
+      options:
+        - Class 0 - Discovery
+        - Class 1 - Low-impact controlled change
+        - Class 2 - Operational configuration change
+        - Class 3 - High-impact / integration change
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Engineering risk
+      options:
+        - LOW
+        - MODERATE
+        - HIGH
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason and scope
+      description: Why is the change required, what is in scope, and what is explicitly out of scope?
+    validations:
+      required: true
+
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline-A
+      description: Reference the known pre-change state and any pre-existing exceptions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and authority
+      description: Components, services, security authority, data/storage, recovery, and cross-repository dependencies.
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation and stop conditions
+      description: Ordered plan, expected results, and conditions that require execution to stop.
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation and observability
+      description: Positive/negative tests plus relevant Health Checker, SMF, SYSLOG, SDSF/JES, LOGREC, RMF, or component evidence.
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Rollback / recovery
+      description: Recovery status, trigger, procedure, and validation.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: gate
+    attributes:
+      label: Pre-change gate
+      options:
+        - label: The affected state and intended delta are understood.
+          required: true
+        - label: Success and failure criteria are defined.
+          required: true
+        - label: Recovery requirements are known before execution.
+          required: true
+        - label: Evidence has a publication-safety plan.
+          required: true
