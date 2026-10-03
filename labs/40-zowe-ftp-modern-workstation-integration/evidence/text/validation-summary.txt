@@ -1,0 +1,37 @@
+LAB 40 VALIDATION SUMMARY
+=========================
+
+Platform:
+- z/OS ADCD V1R11 under Hercules 3.13
+- Modern Windows workstation with VS Code
+- Zowe Explorer 3.6.0
+- Zowe Explorer FTP extension 3.6.0
+- Zowe CLI with @zowe/zos-ftp-for-zowe-cli
+
+Validated:
+[PASS] Zowe FTP authentication
+[PASS] MVS data set listing
+[PASS] Sequential data set read
+[PASS] Sequential data set write, verified by subsequent read
+[PASS] PDS member listing
+[PASS] PDS member read
+[PASS] PDS member download to local VS Code workspace
+
+Observed sequential data-set validation:
+DICIEMBRE
+PRUEBA ZOWE FTP
+
+Observed IBMUSER.REXX.EXEC members:
+ADD2
+ARITH04
+GRADE02
+JES2CLN
+JES2CLN1
+J2CLNALL
+LEVEL02
+
+Security/publication:
+- IP addresses sanitized
+- MAC addresses omitted
+- adapter-specific identifiers omitted
+- credentials omitted
