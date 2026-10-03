@@ -1,0 +1,26 @@
+{
+  "$schema": "./zowe.schema.json",
+  "profiles": {
+    "zftp": {
+      "type": "zftp",
+      "properties": {
+        "port": 2121,
+        "secureFtp": false
+      },
+      "secure": []
+    },
+    "global_base": {
+      "type": "base",
+      "properties": {
+        "host": "<HERCULES_HOST_IP>",
+        "rejectUnauthorized": false
+      },
+      "secure": ["user", "password"]
+    }
+  },
+  "defaults": {
+    "zftp": "zftp",
+    "base": "global_base"
+  },
+  "autoStore": true
+}
