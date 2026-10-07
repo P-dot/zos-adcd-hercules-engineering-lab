@@ -224,5 +224,5 @@ When troubleshooting, walk the artifacts in order and locate the first point whe
 ---
 ### Continue learning
 
-**Lab:** [Return to the lesson](../README.md)  
+**Lab:** [Return to the lesson](../README.md)
 **Academy:** [z/OS Engineering Academy](https://github.com/P-dot/P-dot/blob/main/docs/ACADEMY.md) · [Curriculum](https://github.com/P-dot/P-dot/blob/main/docs/CURRICULUM.md) · [Relationships](https://github.com/P-dot/P-dot/blob/main/docs/RELATIONSHIPS.md)

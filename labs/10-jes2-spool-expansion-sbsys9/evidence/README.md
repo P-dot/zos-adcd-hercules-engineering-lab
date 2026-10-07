@@ -136,5 +136,5 @@ This evidence does not by itself establish enterprise spool sizing policy, multi
 ---
 ### Continue learning
 
-**Related:** [JCL/JES2 course](https://github.com/P-dot/JCL_LABS) · [Storage/VSAM](https://github.com/P-dot/vsam01) · [Diagnostics](https://github.com/P-dot/zos-problem-determination-diagnostics)  
+**Related:** [JCL/JES2 course](https://github.com/P-dot/JCL_LABS) · [Storage/VSAM](https://github.com/P-dot/vsam01) · [Diagnostics](https://github.com/P-dot/zos-problem-determination-diagnostics)
 **Academy:** [z/OS Engineering Academy](https://github.com/P-dot/P-dot/blob/main/docs/ACADEMY.md)
