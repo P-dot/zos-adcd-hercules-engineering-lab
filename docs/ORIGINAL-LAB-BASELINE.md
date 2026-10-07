@@ -41,8 +41,8 @@ Este repositorio documenta un laboratorio propio con fines educativos, defensivo
 | Lab 04 | Ingeniería DASD ZVOL00/ZVOL01 | Creación e inicialización de volúmenes 3390 de laboratorio |
 | Lab 05 | DB2 + CICS DB2CONN | CICS CICSA conectado a DB2 DB9G mediante DB2CONN persistente |
 
-- [Lab 04 - ZVOL DASD Engineering](labs/04-zvol-dasd-engineering)
-- [Lab 05 - DB2 + CICS DB2CONN Integration](labs/05-db2-cics-db2conn-integration)
+- [Lab 04 - ZVOL DASD Engineering](../labs/04-zvol-dasd-engineering/)
+- [Lab 05 - DB2 + CICS DB2CONN Integration](../labs/05-db2-cics-db2conn-integration/)
 
 ---
 
@@ -54,8 +54,8 @@ The complete laboratory connects **Core z/OS · JES2 · JCL · Batch · DFSMS ·
 
 ### Architecture and navigation
 
-- [Laboratory ecosystem](docs/ECOSYSTEM.md)
-- [Repository map](docs/REPOSITORIES.md)
+- [Laboratory ecosystem](architecture/v2/README.md)
+- [Repository map](architecture/v2/ENGINEERING-DOMAINS.md)
 
 ### Engineering workflow
 
