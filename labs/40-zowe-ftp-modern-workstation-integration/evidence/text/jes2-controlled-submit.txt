@@ -1,0 +1,32 @@
+﻿LAB 40 PART 2 - CONTROLLED JES2 VALIDATION
+==========================================
+
+Source:
+IBMUSER.JCL.LAB(IBMJ01)
+
+Transport:
+Zowe CLI -> z/OS FTP -> JES2
+
+Job name:
+IBMJ01
+
+Job ID:
+JOB08388
+
+Status:
+OUTPUT
+
+Return code:
+CC 0000
+
+Validation:
+Controlled JCL submitted from the modern VS Code/Zowe workstation.
+JES2 processed the workload and returned the recorded completion status.
+
+Security:
+Credentials are not recorded in this evidence file.
+Network addresses are intentionally omitted.
+
+Git policy:
+Evidence is captured locally only.
+Commit and push require manual review.
