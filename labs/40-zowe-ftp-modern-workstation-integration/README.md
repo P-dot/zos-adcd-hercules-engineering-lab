@@ -286,7 +286,7 @@ VS Code initially opened the folder in Restricted Mode. Only the dedicated labor
 | Download PDS member locally | PASS |
 | Open local z/OS source workspace in VS Code | PASS |
 | USS through `zos-ftp` | Available in CLI; not validated in this part |
-| JES submit/spool through `zos-ftp` | Available in CLI; not validated in this part |
+| JES submit/status through `zos-ftp` | **PASS** — controlled IEFBR14 job returned OUTPUT / CC 0000 |
 | Automated upload/edit cycle | Next controlled step |
 
 ---
@@ -331,16 +331,35 @@ The resulting workflow allows modern tooling to coexist with a legacy z/OS relea
 
 ---
 
-## Next part
+## Part 2 — controlled JES2 validation
 
-Part 2 should extend the validated workstation path with controlled engineering operations:
+The workstation-to-JES path has now been exercised with the intentionally benign member `IBMUSER.JCL.LAB(IBMJ01)`, which executes `IEFBR14`. The source was inspected before submission. Zowe submitted the member through the FTP/JES path and JES2 returned a completed OUTPUT state with condition code 0000. The sanitized result is retained in `evidence/text/jes2-controlled-submit.txt`.
+
+This closes the next integration boundary:
+
+    VS Code / PowerShell
+            |
+         Zowe CLI
+            |
+        z/OS FTP/JES
+            |
+           JES2
+            |
+        IEFBR14
+            |
+      OUTPUT / CC 0000
+
+Credentials and network addresses are deliberately absent from the evidence.
+
+## Next engineering increment
+
+The remaining controlled extensions are:
 
 ```text
 local source
     -> upload to test PDS member
     -> verify from z/OS
-    -> submit controlled JCL through FTP/JES
-    -> inspect job status and spool
+    -> retrieve selected spool content
     -> validate USS listing/download/upload
     -> package repeatable VS Code tasks
 ```
