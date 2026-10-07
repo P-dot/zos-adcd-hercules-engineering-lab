@@ -9,5 +9,5 @@ Add the following row to the repository's **Nuevos laboratorios** table:
 Optionally add:
 
 ```markdown
-* [Lab 19 - DFSMSrmm Activation and Runtime Validation](labs/19-dfsmsrmm-activation)
+* [Lab 19 - DFSMSrmm Activation and Runtime Validation](../)
 ```
